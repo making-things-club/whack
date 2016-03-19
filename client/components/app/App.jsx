@@ -8,11 +8,11 @@ export default class App extends React.Component {
 		});
   }
 
-  onJoinRoom() {
+  onJoinRoom(playerName) {
 
     const gameId = this.state.gameId;
     console.log('gameId = ' + gameId);
-    Meteor.call('joinRoom', gameId, ' Judit', (error, result) => {
+    Meteor.call('joinRoom', gameId, playerName, (error, result) => {
 				console.log('error = ' + error + ' result = ' + result);
 		});
   }
