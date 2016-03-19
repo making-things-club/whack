@@ -51,10 +51,13 @@ modules@0.5.0-beta.12
 modules-runtime@0.5.0-beta.12
 mongo@1.1.4-beta.12
 mongo-id@1.0.1
+nathantreid:css-modules@1.0.0-beta.7
+nathantreid:css-modules-import-path-helpers@0.0.1
 npm-mongo@1.4.40-beta.12
 observe-sequence@1.0.8-beta.12
 ordered-dict@1.0.4
 promise@0.5.2-beta.12
+ramda:ramda@0.19.0
 random@1.0.6-beta.12
 react@0.14.3_1
 react-meteor-data@0.2.5
