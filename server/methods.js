@@ -1,32 +1,32 @@
-getRoundId = function getRoundId(roomId) {
+// check whether all joined players have pressed start
+playersStarted = function playersStarted(roomId) {
+  Rooms.update({ _id : roomId, $inc: { playersStarted : 1 }}); // Nice to have - store player ids
   var room = Rooms.findOne({ _id : roomId });
-  var rounds = room.rounds; // update this once round is finished
-  var round = Rounds.findOne({ roomId : roomId, round : rounds });
-  var roundId = round ? round._id : Rounds.insert({ gameId : gameId, round : rounds, players : 0});
+  var players = Players.find({ gameId : gameId});
+  return room.playersStarted === players.count();
 }
 
-allPlayersStartRound = function allPlayersStartRound(roundId, playerId) {
-  Rounds.update({ _id : roundId, $inc:{players : 1}}); // this means same player can start multiple times, not great
-  var roundPlayers = Rounds.findOne({ _id : roundId }).players;
-  var players = Players.find({ roomId : roomId }).count();
-  return players <= roundPlayers;
-}
-
+// pick a random player from the list of players
 pickPlayer = function pickPlayer() {
-
+  var random = Math.random();
+  return Players.find({random:{$gt:random}}).sort({random:1}).limit(1);
 }
 
 Meteor.methods({
 
   'createRoom': function(roomName) {
 
-    return Rooms.insert({ name : roomName, rounds : [] }); // returns room._id
+    return Rooms.insert({ name : roomName, rounds : 0, roundFinished : false, roundStartTime : 0, roundDuration : 0, playersStarted: 0}); // returns room._id
   },
 
-  'joinRoom': function(roomId, playerName) {
+  'joinRoom': function(roomId, playerName, moleId) {
     var room = Rooms.findOne({ _id : roomId });
+    if(!moleId) {
+      moleId = 1;
+    }
     if(room) {
-      return Players.insert({ name : playerName, roomId : roomId, played : false, score : 0 }); // return player._id
+      var random = Math.random();
+      return Players.insert({ name : playerName, moleId: moleId, roomId : roomId, played : false, score : 0, random : random }); // return player._id
     }
   },
 
@@ -34,32 +34,14 @@ Meteor.methods({
 
     // TODO evaluate whether new round needs to be created of just add player to current
     var room = Rooms.findOne({ _id : roomId });
-    var rounds = room.rounds;
-    if(!room.rounds.length) {
-      // create new round object and add it
-      Rooms.update({ _id : roomId, })
+    if(room) {
+
+      if(playersStarted(roomId)) {
+        // TODO start game
+        var pickedPlayer = pickPlayer(roomId);
+      }
     }
-    else {
-
-        // get latest, check whetehr finished or not
-    }
-
-    var round = room.rounds[room.rounds.length - 1]; // update this once round is finished
-    var round = Rounds.findOne({ roomId : roomId, round : rounds });
-    var roundId = round ? round._id : Rounds.insert({ gameId : gameId, round : rounds, players : 0});
-
-
-    var roundId = getRoundId(roomId);
-
-    // {finished : true | false, playersJoined : 0, startTime : , duration :, playerId : }
-
-    // TODO check whether all players have called start round
-    if(allPlayersStartRound(roundId, playerId)) {
-      var pickedPlayerId = pickPlayer(gameId);
-    }
-    // TODO if so ->
-    // TODO pick a player from Players, where player hasn't had a go yet
-    // TODO do a timeout, and actually start the game...
+    // TODO return error message for room not found
   },
 
 });

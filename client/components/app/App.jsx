@@ -26,16 +26,16 @@ export default class App extends React.Component {
 
   getPropsWithChildren () {
 
-    const childrenWithProps = React.Children.map(this.props.content, (child) => {
+    const childrenWithProps = React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, {
-        gameId: this.state.gameId, 
+        gameId: this.state ? this.state.gameId : null,
         createRoom: this.onCreateRoom,
         joinRoom: this.onJoinRoom,
         startRound: this.onStartRound,
       });
     });
     return childrenWithProps;
-  },
+  }
 
   render() {
     return (
