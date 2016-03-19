@@ -10,6 +10,7 @@ export default class Start extends React.Component {
   goToJoin(e) {
     e.preventDefault();
     const gameName = this.state.gameName.replace(/[^a-zA-Z0-9-_]/g, '-');
+    this.props.createRoom(gameName);
   }
 
   setGameName(e) {

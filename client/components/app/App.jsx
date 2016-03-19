@@ -1,18 +1,19 @@
+const { browserHistory } = ReactRouter;
+
 export default class App extends React.Component {
 
   onCreateRoom(roomName) {
 
     Meteor.call('createRoom', roomName, (error, result) => {
-				console.log('error = ' + error + ' result = ' + result);
-        this.setState({ gameId: result });
+        this.setState({ roomId: result });
+        browserHistory.push('/join/' + result);
 		});
   }
 
   onJoinRoom(playerName) {
 
-    const gameId = this.state.gameId;
-    console.log('gameId = ' + gameId);
-    Meteor.call('joinRoom', gameId, playerName, (error, result) => {
+    const roomId = this.state.roomId;
+    Meteor.call('joinRoom', roomId, playerName, (error, result) => {
 				console.log('error = ' + error + ' result = ' + result);
 		});
   }
@@ -29,7 +30,7 @@ export default class App extends React.Component {
     const childrenWithProps = React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, {
         gameId: this.state ? this.state.gameId : null,
-        createRoom: this.onCreateRoom,
+        createRoom: this.onCreateRoom.bind(this),
         joinRoom: this.onJoinRoom,
         startRound: this.onStartRound,
       });
