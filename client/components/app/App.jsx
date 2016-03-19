@@ -5,14 +5,14 @@ export default class App extends React.Component {
     const react = this;
     Meteor.call('createRoom', 'test room name', (error, result) => {
 				console.log('error = ' + error + ' result = ' + result);
-        console.log('this = ', this);
-        react.setState({ gameId: result });
+        this.setState({ gameId: result });
 		});
   }
 
   onJoinRoom() {
 
     const gameId = this.state.gameId;
+    console.log('gameId = ' + gameId);
     Meteor.call('joinRoom', gameId, ' Judit', (error, result) => {
 				console.log('error = ' + error + ' result = ' + result);
 		});
@@ -28,9 +28,9 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.onCreateRoom}>Create room</button>
-        <button onClick={this.onJoinRoom}>Join room</button>
-        <button onClick={this.onStartRound}>Start round</button>
+        <button onClick={()=>this.onCreateRoom()}>Create room</button>
+        <button onClick={()=>this.onJoinRoom()}>Join room</button>
+        <button onClick={()=>this.onStartRound()}>Start round</button>
         {this.props.children}
       </div>
     )
