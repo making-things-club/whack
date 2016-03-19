@@ -10,16 +10,11 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "forwarded_port", guest: 3000, host: 3000
 
+  # Had to run as sudo to get some ports listening :(
+
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
     apt-get install -y git tree htop
     curl https://install.meteor.com/ | sh
-    git clone https://github.com/jjlpr/whack/
-    cd whack
-    meteor
   SHELL
 end
-
-
-# wget https://nodejs.org/dist/v4.4.0/node-v4.4.0-linux-x64.tar.xz
-# tar -xf node-v4.4.0-linux-x64.tar.xz
