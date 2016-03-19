@@ -1,3 +1,3 @@
-.setup {
+.join {
   color: $red;
 }

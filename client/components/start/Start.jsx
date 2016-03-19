@@ -7,19 +7,19 @@ export default class Start extends React.Component {
     this.state = { value: ''}
   }
 
-  goToGame() {
+  goToJoin() {
     const gameName = this.state.gameName.replace(/[^a-zA-Z0-9-_]/g, '-');
-    browserHistory.push(`/g/${gameName}`);
+    browserHistory.push(`/join/${gameName}`);
   }
 
   setGameName(e) {
-    this.setState({gameName:e.target.value});
+    this.setState({gameName: e.target.value});
   }
 
   render() {
     return (
         <div>
-          <form onSubmit={()=>this.goToGame()}>
+          <form onSubmit={()=>this.goToJoin()}>
             <label>Give your game a name</label>
             <input
               type="text"

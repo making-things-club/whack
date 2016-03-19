@@ -2,7 +2,8 @@ const { Router, Route, IndexRoute, Link, browserHistory } = ReactRouter;
 
 import App from './components/app/App.jsx';
 import Start from './components/start/Start.jsx';
-import Setup from './components/setup/Setup.jsx';
+import Join from './components/join/Join.jsx';
+import Game from './components/game/Game.jsx';
 
 Meteor.startup(function() {
   if(Meteor.isClient) {
@@ -14,7 +15,8 @@ Meteor.startup(function() {
       <Router history={browserHistory}>
         <Route path="/" component={App}>
           <IndexRoute component={Start} />
-          <Route path="setup" component={Setup} />
+          <Route path="join/:gameName" component={Join} />
+          <Route path="game/:gameName" component={Game} />
         </Route>
       </Router>
     ), root);
