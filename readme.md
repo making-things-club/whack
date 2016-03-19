@@ -33,3 +33,13 @@ meteor
 ```
 
 And you might get an error about `EACCESS`, if so use `sudo meteor`.
+
+## Reloading VM
+
+Vagrant links the `whack` folder to `/vagrant`, so run the `reload_vm.sh`
+script to pull the latest info (this is only required because `sudo` is
+needed for running the server). On the vm do:
+
+```sh
+/vagrant/reload_vm.sh
+```
