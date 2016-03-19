@@ -1,17 +1,12 @@
 {
   "name": "whack",
-  "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "",
   "main": "whack.js",
   "scripts": {
-    "start": "meteor run",
-    "test": "meteor test-app --driver-package practicalmeteor:mocha"
-  },
-  "dependencies": {
-    "meteor-node-stubs": "~0.2.0"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "description": ""
+  "license": "ISC"
 }
