@@ -1,9 +1,8 @@
 export default class App extends React.Component {
 
-  onCreateRoom() {
+  onCreateRoom(roomName) {
 
-    const react = this;
-    Meteor.call('createRoom', 'test room name', (error, result) => {
+    Meteor.call('createRoom', roomName, (error, result) => {
 				console.log('error = ' + error + ' result = ' + result);
         this.setState({ gameId: result });
 		});
@@ -25,13 +24,26 @@ export default class App extends React.Component {
 		});
   }
 
+  getPropsWithChildren () {
+
+    const childrenWithProps = React.Children.map(this.props.content, (child) => {
+      return React.cloneElement(child, {
+        gameId: this.state.gameId, 
+        createRoom: this.onCreateRoom,
+        joinRoom: this.onJoinRoom,
+        startRound: this.onStartRound,
+      });
+    });
+    return childrenWithProps;
+  },
+
   render() {
     return (
       <div>
         <button onClick={()=>this.onCreateRoom()}>Create room</button>
         <button onClick={()=>this.onJoinRoom()}>Join room</button>
         <button onClick={()=>this.onStartRound()}>Start round</button>
-        {this.props.children}
+        {this.getPropsWithChildren()}
       </div>
     )
   }
