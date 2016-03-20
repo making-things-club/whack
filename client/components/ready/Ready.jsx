@@ -17,7 +17,6 @@ export default class Ready extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     const joinPath = `http://${window.location.hostname}:${window.location.port}/join/${this.props.roomId}`
     return(
       <div>
