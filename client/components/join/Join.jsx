@@ -8,9 +8,7 @@ export default class Join extends React.Component {
 
   onJoinRoom(e) {
     e.preventDefault();
-
-    const playerName = ReactDOM.findDOMNode(this.refs.playerName).value;
-    this.props.joinRoom(playerName);
+    this.props.joinRoom(this.refs.playerName.value);
   }
 
   render() {
@@ -18,9 +16,10 @@ export default class Join extends React.Component {
       <div className={styles.container}>
         <Title value="Player name" />
         <GameLocation roomId={this.props.roomId} />
-        <TextInput ref="playerName" label="Your name" />
-        <br/>
-        <Button onClick={(e)=>this.onJoinRoom(e)}>Join game</Button>
+        <form onSubmit={(e)=>this.onJoinRoom(e)}>
+          <TextInput ref="playerName" label="Your name" />
+          <Button onClick={(e)=>this.onJoinRoom(e)}>Join game</Button>
+        </form>
       </div>
     )
   }
