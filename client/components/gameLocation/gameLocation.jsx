@@ -16,8 +16,8 @@ export default class GameLocation extends React.Component {
   getURL() {
     const {hostname, port} = window.location
     return (port === 80)
-              ? `http://${hostname}/join/${this.props.roomId}`
-              : `http://${hostname}:${port}/join/${this.props.roomId}`
+              ? `${hostname}/join/${this.props.roomId}`
+              : `${hostname}:${port}/join/${this.props.roomId}`
   }
 
   render() {
@@ -26,7 +26,7 @@ export default class GameLocation extends React.Component {
                           ? 'Copied to clipboard'
                           : 'Tap to copy to clipboard.'
     return(
-      <button ref="button" className={styles.container} onClick={()=>this.setState({linkCopied:true })} data-clipboard-text={URL}>
+      <button ref="button" className={styles.container} onClick={()=>this.setState({linkCopied:true })} data-clipboard-text={`http://${URL}`}>
         <span className={styles.title}>
           Visit this page to join the game
         </span>
