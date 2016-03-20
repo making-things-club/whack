@@ -23,7 +23,7 @@ export default class GameLocation extends React.Component {
   render() {
     const URL = this.getURL()
     const instruction = (this.state.linkCopied) 
-                          ? 'Link copied - now share it with someone'
+                          ? 'Copied to clipboard'
                           : 'Tap to copy to clipboard.'
     return(
       <button ref="button" className={styles.container} onClick={()=>this.setState({linkCopied:true })} data-clipboard-text={URL}>
