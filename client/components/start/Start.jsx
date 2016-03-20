@@ -13,7 +13,7 @@ export default class Start extends React.Component {
     return (
         <div>
           <Title value="Welcome to" />
-          <h2>Holey Moley</h2>
+          <h1 className={styles.heroTitle}>Holey Moley</h1>
           <Paragraph>
             For 2 or more players.
           </Paragraph>
