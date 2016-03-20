@@ -1,5 +1,6 @@
 import styles from './app.mss';
 import Hill from '../hill/Hill.jsx';
+import Cloud from '../cloud/Cloud.jsx';
 
 const { browserHistory } = ReactRouter;
 
@@ -104,8 +105,18 @@ export default class App extends React.Component {
         <button onClick={()=>this.onCreateRoom()}>Create room</button>
         <button onClick={()=>this.onJoinRoom()}>Join room</button>
         <button onClick={()=>this.onStartRound()}>Start round</button>
-        {this.getPropsWithChildren()}
-        <Hill />
+        <div className={styles.game}>
+          {this.getPropsWithChildren()}
+        </div>
+        <div className={styles.cloudLeft}>
+          <Cloud direction="left" />
+        </div>
+        <div className={styles.cloudRight}>
+          <Cloud direction="right" />
+        </div>
+        <div className={styles.hill}>
+          <Hill />
+        </div>
       </div>
     )
   }
