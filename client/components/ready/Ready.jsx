@@ -1,4 +1,5 @@
 import styles from './ready.mss';
+import Button from '../button/button.jsx'
 
 export default class Ready extends React.Component {
 
@@ -26,7 +27,7 @@ export default class Ready extends React.Component {
         <p><em>{this.props.params.roomId}</em></p>
         <ul>{this.renderPlayers()}</ul>
         <p>Waiting for all the players to join before starting the game</p>
-        <button onClick={()=>this.goToGame()}>Start game</button>
+        <Button onClick={()=>this.goToGame()}>Start game</Button>
       </div>
     )
   }

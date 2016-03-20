@@ -1,4 +1,5 @@
 import styles from './join.mss';
+import Button from '../button/button.jsx'
 
 export default class Join extends React.Component {
 
@@ -28,7 +29,7 @@ export default class Join extends React.Component {
         <label>Enter your name</label>
         <input type="text" ref="playerName" placeholder="Your name" />
         <br/>
-        <button onClick={(e)=>this.onJoinRoom(e)}>Join game</button>
+        <Button onClick={(e)=>this.onJoinRoom(e)}>Join game</Button>
       </div>
     )
   }
