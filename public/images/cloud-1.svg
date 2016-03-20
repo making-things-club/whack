@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="246px" height="132px" viewBox="0 0 246 132" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>Combined Shape Copy 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="4" in="SourceGraphic" result="blur"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" filter="url(#filter-1)">
+        <path d="M50.7574171,120.231404 C48.4744326,120.734652 46.1016625,121 43.6666667,121 C25.6253648,121 11,106.43349 11,88.4647887 C11,70.4960877 25.6253648,55.9295775 43.6666667,55.9295775 C52.8076367,55.9295775 61.0716893,59.6689983 67.0008274,65.6957099 C67.1652844,35.4600586 91.8257356,11 122.222222,11 C147.717838,11 169.177967,28.2084495 175.532335,51.599626 C181.624367,47.4869918 188.974929,45.084507 196.888889,45.084507 C217.937074,45.084507 235,62.078769 235,83.0422535 C235,104.005738 217.937074,121 196.888889,121 C194.262328,121 191.697825,120.735365 189.220794,120.231404 L131.474529,120.231404 C128.466093,120.736852 125.375012,121 122.222222,121 C119.069432,121 115.978352,120.736852 112.969915,120.231404 L50.7574171,120.231404 Z" id="Combined-Shape-Copy-2" fill="#FFFFFF"></path>
+    </g>
+</svg>

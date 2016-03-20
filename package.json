@@ -33,5 +33,7 @@
       "postcss-modules-scope": {}
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "normalize.css": "^4.0.0"
+  }
 }

@@ -1,3 +1,6 @@
+import styles from './app.mss';
+import Hill from '../hill/Hill.jsx';
+
 const { browserHistory } = ReactRouter;
 
 export default class App extends React.Component {
@@ -97,11 +100,12 @@ export default class App extends React.Component {
   render() {
 
     return (
-      <div>
+      <div className={styles.app}>
         <button onClick={()=>this.onCreateRoom()}>Create room</button>
         <button onClick={()=>this.onJoinRoom()}>Join room</button>
         <button onClick={()=>this.onStartRound()}>Start round</button>
         {this.getPropsWithChildren()}
+        <Hill />
       </div>
     )
   }
