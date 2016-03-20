@@ -1,5 +1,6 @@
 import styles from './join.mss';
 import Button from '../button/button.jsx'
+import TextInput from '../textInput/textInput.jsx'
 
 export default class Join extends React.Component {
 
@@ -27,7 +28,7 @@ export default class Join extends React.Component {
         <p>Visit this URL to join the game.</p>
         <p>{this.getJoinRoomUrl()}</p>
         <label>Enter your name</label>
-        <input type="text" ref="playerName" placeholder="Your name" />
+        <TextInput ref="playerName" placeholder="Your name" />
         <br/>
         <Button onClick={(e)=>this.onJoinRoom(e)}>Join game</Button>
       </div>
