@@ -15,7 +15,7 @@ export default class Join extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className={styles.container}>
         <Title value="Player name" />
         <GameLocation roomId={this.props.roomId} />
         <TextInput ref="playerName" placeholder="Your name" />

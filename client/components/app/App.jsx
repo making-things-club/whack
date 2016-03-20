@@ -102,9 +102,11 @@ export default class App extends React.Component {
 
     return (
       <div className={styles.app}>
-        <button onClick={()=>this.onCreateRoom()}>Create room</button>
-        <button onClick={()=>this.onJoinRoom()}>Join room</button>
-        <button onClick={()=>this.onStartRound()}>Start round</button>
+        <div style={{position: 'absolute'}} >
+          <button onClick={()=>this.onCreateRoom()}>Create room</button>
+          <button onClick={()=>this.onJoinRoom()}>Join room</button>
+          <button onClick={()=>this.onStartRound()}>Start round</button>
+        </div>
         <div className={styles.game}>
           {this.getPropsWithChildren()}
         </div>

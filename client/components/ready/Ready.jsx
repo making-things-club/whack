@@ -13,7 +13,7 @@ export default class Ready extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className={styles.container}>
         <Title value="Waiting room" />
         <GameLocation roomId={this.props.roomId} />
         <Paragraph>
