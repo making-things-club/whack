@@ -14,9 +14,9 @@ pickPlayer = function pickPlayer() {
 
 Meteor.methods({
 
-  'createRoom': function(roomName) {
+  'createRoom': function() {
 
-    return Rooms.insert({ name : roomName, rounds : 0, roundFinished : false, roundStartTime : 0, roundDuration : 0, playersStarted: 0}); // returns room._id
+    return Rooms.insert({ rounds : 0, roundFinished : false, roundStartTime : 0, roundDuration : 0, playersStarted: 0}); // returns room._id
   },
 
   'joinRoom': function(roomId, playerName, moleId) {

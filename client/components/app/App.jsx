@@ -33,7 +33,7 @@ export default class App extends React.Component {
 
   onCreateRoom(roomName) {
 
-    Meteor.call('createRoom', roomName, (error, result) => {
+    Meteor.call('createRoom', (error, result) => {
         this.setState({ roomId: result });
         browserHistory.push('/join/' + result);
 		});
