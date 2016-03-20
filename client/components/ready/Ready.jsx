@@ -1,6 +1,7 @@
 import styles from './ready.mss';
 import Title from '../title/title.jsx'
 import GameLocation from '../gameLocation/gameLocation.jsx'
+import PlayersList from '../playersList/playersList.jsx'
 import Button from '../button/button.jsx'
 
 export default class Ready extends React.Component {
@@ -25,6 +26,7 @@ export default class Ready extends React.Component {
       <div>
         <Title value="Waiting room" />
         <GameLocation roomId={this.props.roomId} />
+        <PlayersList players={this.props.players} />
         <ul>{this.renderPlayers()}</ul>
         <p>Waiting for all the players to join before starting the game</p>
         <Button onClick={()=>this.goToGame()}>Start game</Button>
