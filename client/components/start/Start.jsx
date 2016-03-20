@@ -1,3 +1,5 @@
+import styles from './start.mss';
+
 export default class Start extends React.Component {
 
   goToJoin() {
