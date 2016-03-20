@@ -1,5 +1,6 @@
 .button {
-  border: none;
+  position: absolute;
+  bottom: 0;
   line-height: 66px;
   width: 100%;
   background-color: #B38ED6;

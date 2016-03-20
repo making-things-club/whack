@@ -6,33 +6,20 @@ import TextInput from '../textInput/textInput.jsx'
 
 export default class Join extends React.Component {
 
-  constructor() {
-    super();
-  }
-
   onJoinRoom(e) {
     e.preventDefault();
-
-    const playerName = ReactDOM.findDOMNode(this.refs.playerName).value;
-    this.props.joinRoom(playerName);
-  }
-
-  getJoinRoomUrl() {
-    var joinRoomUrl = window.location.href;
-    return joinRoomUrl;
+    this.props.joinRoom(this.refs.playerName.value);
   }
 
   render() {
     return(
-      <div>
+      <div className={styles.container}>
         <Title value="Player name" />
         <GameLocation roomId={this.props.roomId} />
-        <p>Visit this URL to join the game.</p>
-        <p>{this.getJoinRoomUrl()}</p>
-        <label>Enter your name</label>
-        <TextInput ref="playerName" placeholder="Your name" />
-        <br/>
-        <Button onClick={(e)=>this.onJoinRoom(e)}>Join game</Button>
+        <form onSubmit={(e)=>this.onJoinRoom(e)}>
+          <TextInput ref="playerName" label="Your name" />
+          <Button onClick={(e)=>this.onJoinRoom(e)}>Join game</Button>
+        </form>
       </div>
     )
   }
