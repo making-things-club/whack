@@ -1,5 +1,6 @@
 import styles from './join.mss';
 import Title from '../title/title.jsx'
+import GameLocation from '../gameLocation/gameLocation.jsx'
 import Button from '../button/button.jsx'
 import TextInput from '../textInput/textInput.jsx'
 
@@ -22,10 +23,10 @@ export default class Join extends React.Component {
   }
 
   render() {
-
     return(
       <div>
         <Title value="Player name" />
+        <GameLocation roomId={this.props.roomId} />
         <p>Visit this URL to join the game.</p>
         <p>{this.getJoinRoomUrl()}</p>
         <label>Enter your name</label>
