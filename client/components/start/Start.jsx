@@ -1,4 +1,5 @@
 import styles from './start.mss';
+import Button from '../button/button.jsx'
 
 export default class Start extends React.Component {
 
@@ -11,7 +12,7 @@ export default class Start extends React.Component {
         <div>
           <h1>Welcome.</h1>
           <h2>The mole game.</h2>
-          <button onClick={()=>this.goToJoin()}>Create a game</button>
+          <Button onClick={()=>this.goToJoin()}>Create a game</Button>
         </div>
     );
   }
