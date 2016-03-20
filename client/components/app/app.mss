@@ -11,3 +11,35 @@ body {
     height: 100vh;
     width: 100vw;
 }
+
+.game {
+    position: relative;
+    z-index: 4;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+.hill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+}
+
+.cloudLeft {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.cloudRight {
+    position: absolute;
+    top: 120px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
