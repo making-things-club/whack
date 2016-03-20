@@ -15,8 +15,8 @@ Meteor.startup(function() {
       <Router history={browserHistory}>
         <Route path="/" component={App}>
           <IndexRoute component={Start} />
-          <Route path="join/:gameName" component={Join} />
-          <Route path="game/:gameName" component={Game} />
+          <Route path="join/:roomId" component={Join} />
+          <Route path="game" component={Game} />
         </Route>
       </Router>
     ), root);
