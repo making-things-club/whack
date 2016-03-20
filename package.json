@@ -1,7 +1,7 @@
 {
   "name": "whack",
   "version": "1.0.0",
-  "description": "",
+  "description": "A super cool whack-mole-game.",
   "main": "whack.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,5 +32,16 @@
       "postcss-modules-extract-imports": {},
       "postcss-modules-scope": {}
     }
-  }
+  },
+  "dependencies": {
+    "normalize.css": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jjlpr/whack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jjlpr/whack/issues"
+  },
+  "homepage": "https://github.com/jjlpr/whack"
 }
