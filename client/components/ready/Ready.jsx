@@ -1,4 +1,5 @@
 import styles from './ready.mss';
+import Title from '../title/title.jsx'
 import Button from '../button/button.jsx'
 
 export default class Ready extends React.Component {
@@ -21,6 +22,7 @@ export default class Ready extends React.Component {
     const joinPath = `http://${window.location.hostname}:${window.location.port}/join/${this.props.roomId}`
     return(
       <div>
+        <Title value="Waiting room" />
         <h1>Place your phone down on a table.</h1>
         <p>Share this URL to join the game. </p>
         <a href={joinPath}>{joinPath}</a>
