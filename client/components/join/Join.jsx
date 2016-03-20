@@ -18,7 +18,7 @@ export default class Join extends React.Component {
       <div className={styles.container}>
         <Title value="Player name" />
         <GameLocation roomId={this.props.roomId} />
-        <TextInput ref="playerName" placeholder="Your name" />
+        <TextInput ref="playerName" label="Your name" />
         <br/>
         <Button onClick={(e)=>this.onJoinRoom(e)}>Join game</Button>
       </div>
