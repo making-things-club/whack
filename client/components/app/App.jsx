@@ -40,14 +40,14 @@ export default class App extends React.Component {
     if(!this.state.roomId) {
       if(pathname != '/' && pathname.indexOf('/join') === -1) {
         // if we are anywhere other than start join
-        browserHistory.push('/');
+        //browserHistory.push('/');
       }
       else if(this.props.params.roomId) {
         this.setState({ roomId: this.props.params.roomId });
       }
       else if(this.props.location.pathname != '/') {
         // we don't have a roomId at all, so we shouldn't be anywhere else but start
-        browserHistory.push('/');
+        //browserHistory.push('/');
       }
     }
   }
