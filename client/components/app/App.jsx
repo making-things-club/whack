@@ -11,6 +11,7 @@ export default class App extends React.Component {
         players: Meteor.subscribe('players')
       }
     }
+    // console.log('componentWillReceiveProps this.props.params.roomId = ', this.props.params.roomId);
   }
 
   room() {
@@ -27,8 +28,28 @@ export default class App extends React.Component {
     return null;
   }
 
-  componentWillReceiveProps() {
-    console.log('componentWillReceiveProps this.props.params = ', this.props.params);
+  players() {
+    if(this.state.roomId) {
+      return Players.find({ roomId : this.state.roomId }).fetch();
+    }
+    return null;
+  }
+
+  componentWillMount() {
+    const pathname = this.props.location.pathname;
+    if(!this.state.roomId) {
+      if(pathname != '/' && pathname.indexOf('/join') === -1) {
+        // if we are anywhere other than start join
+        browserHistory.push('/');
+      }
+      else if(this.props.params.roomId) {
+        this.setState({ roomId: this.props.params.roomId });
+      }
+      else if(this.props.location.pathname != '/') {
+        // we don't have a roomId at all, so we shouldn't be anywhere else but start
+        browserHistory.push('/');
+      }
+    }
   }
 
   onCreateRoom(roomName) {
@@ -44,6 +65,7 @@ export default class App extends React.Component {
     const roomId = this.state.roomId;
     Meteor.call('joinRoom', roomId, playerName, (error, result) => {
 				console.log('error = ' + error + ' result = ' + result);
+        browserHistory.push('/ready');
 		});
   }
 
@@ -59,6 +81,8 @@ export default class App extends React.Component {
     const childrenWithProps = React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, {
         roomId: this.state.roomId,
+        player: this.player(), // player.name player.score
+        players: this.players(),
         createRoom: this.onCreateRoom.bind(this),
         joinRoom: this.onJoinRoom.bind(this),
         startRound: this.onStartRound.bind(this),
