@@ -10,7 +10,7 @@ export default class Join extends React.Component {
     e.preventDefault();
 
     const playerName = ReactDOM.findDOMNode(this.refs.playerName).value;
-    this.props.joinRoom(this.props.roomId, playerName);
+    this.props.joinRoom(playerName);
   }
 
   getJoinRoomUrl() {

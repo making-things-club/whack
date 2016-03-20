@@ -65,13 +65,16 @@ export default class App extends React.Component {
     const roomId = this.state.roomId;
     Meteor.call('joinRoom', roomId, playerName, (error, result) => {
 				console.log('error = ' + error + ' result = ' + result);
+        this.setState({ playerId: result });
         browserHistory.push('/ready');
 		});
   }
 
   onStartRound() {
 
-    Meteor.call('startRound', (error, result) => {
+    const roomId = this.state.roomId;
+    const playerId = this.state.playerId;
+    Meteor.call('startRound', roomId, playerId, (error, result) => {
 				console.log('error = ' + error + ' result = ' + result);
 		});
   }
