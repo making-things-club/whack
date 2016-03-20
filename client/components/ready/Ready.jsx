@@ -1,5 +1,6 @@
 import styles from './ready.mss';
 import Title from '../title/title.jsx'
+import GameLocation from '../gameLocation/gameLocation.jsx'
 import Button from '../button/button.jsx'
 
 export default class Ready extends React.Component {
@@ -23,10 +24,7 @@ export default class Ready extends React.Component {
     return(
       <div>
         <Title value="Waiting room" />
-        <h1>Place your phone down on a table.</h1>
-        <p>Share this URL to join the game. </p>
-        <a href={joinPath}>{joinPath}</a>
-        <p><em>{this.props.params.roomId}</em></p>
+        <GameLocation roomId={this.props.roomId} />
         <ul>{this.renderPlayers()}</ul>
         <p>Waiting for all the players to join before starting the game</p>
         <Button onClick={()=>this.goToGame()}>Start game</Button>

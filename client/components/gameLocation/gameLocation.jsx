@@ -2,9 +2,15 @@ import styles from './gameLocation.mss';
 
 export default class GameLocation extends React.Component {
 
-  onClick (e) {
-    e.preventDefault()
-    console.log('clicked')
+  constructor() {
+    super();
+    this.state = {
+      linkCopied: false
+    }
+  }
+
+  componentDidMount() {
+    var clipboard = new Clipboard(this.refs.button);
   }
 
   getURL() {
@@ -16,8 +22,11 @@ export default class GameLocation extends React.Component {
 
   render() {
     const URL = this.getURL()
+    const instruction = (this.state.linkCopied) 
+                          ? 'Copied to clipboard'
+                          : 'Tap to copy to clipboard.'
     return(
-      <a className={styles.container} onClick={this.onClick.bind(this)} href={URL}>
+      <button ref="button" className={styles.container} onClick={()=>this.setState({linkCopied:true })} data-clipboard-text={URL}>
         <span className={styles.title}>
           Visit this page to join the game
         </span>
@@ -25,9 +34,9 @@ export default class GameLocation extends React.Component {
           {URL}
         </span>
         <span className={styles.instructions}>
-          Tap to copy to clipboard.
+          {instruction}
         </span>
-      </a>
+      </button>
     )
   }
 }
