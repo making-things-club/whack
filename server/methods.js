@@ -29,12 +29,14 @@ pickPlayer = function pickPlayer(roomId) {
   return player;
 }
 
-pickMole = function pickMole(roomId) {
+pickMole = function pickMole(roomId, pickedMoleId) {
+  console.log('pickMole roomId = ' + roomId);
   var random = Math.random();
-  var player = Players.findOne({roomId: roomId, random: {$gte: random}}, {sort: {random:1}});
+  var player = Players.findOne({roomId: roomId, _id: {$ne: pickedMoleId}, random: {$gte: random}}, {sort: {random:1}});
   if(!player) {
-    player = Players.findOne({roomId: roomId, random: {$lte: random}}, {sort: {random:1}});
+    player = Players.findOne({roomId: roomId, _id: {$ne: pickedMoleId}, random: {$lte: random}}, {sort: {random:1}});
   }
+  console.log('pickMole player.name = ' + player.name);
   return player;
 }
 
@@ -42,28 +44,29 @@ startRound = function startRound(roomId) {
   var pickedPlayerId = pickPlayer(roomId)._id;
   var now = Date.now();
   Rooms.update({ _id : roomId}, { $set : { pickedPlayerId : pickedPlayerId, state : 'playerPicked', roundStartTime : now, roundDuration : roundDuration}}); // On the front end compare this tostored playerId
-  Player.update({ _id : pickedPlayerId}, { $set : { played : true }});
+  Players.update({ _id : pickedPlayerId}, { $set : { played : true }});
   playerPickedTimeout = Meteor.setTimeout(function() {
-    startMole(roomId)
+    startMole(roomId, '')
   }, playerPickedDelay);
   roundTimeout = Meteor.setTimeout(function() {
     endRound(roomId)
   }, playerPickedDelay + roundDuration);
 }
 
-startMole = function startMole(roomId) {
+startMole = function startMole(roomId, pickedMoleId) {
   moleTimeout = Meteor.setTimeout(function() {
-    showMole(roomId)
+    showMole(roomId, pickedMoleId)
   }, moleDuration);
 }
 
-showMole = function showMole(roomId) {
-  var pickedMoleId = pickMole(roomId)._id;
+showMole = function showMole(roomId, pickedMoleId) {
+  var pickedMoleId = pickMole(roomId, pickedMoleId)._id;
   Rooms.update({ _id : roomId}, { $set : { pickedMoleId : pickedMoleId, state : 'molePicked'}}); // On the front end compare this tostored playerId
-  startMole();
+  startMole(roomId, pickedMoleId);
 }
 
 endRound = function endRound(roomId) {
+  console.log('endRound');
   Meteor.clearTimeout(moleTimeout);
   var notPlayedPlayers = Players.find({ roomId : roomId, played : false });
   if(notPlayedPlayers.count() > 0) {
@@ -115,7 +118,7 @@ Meteor.methods({
       Meteor.clearTimeout(moleTimeout);
       var playerId = room.pickedPlayerId;
       Players.update({ _id : playerId}, {$inc : { score : 1}});
-      showMole();
+      showMole(roomId);
     }
   }
 });

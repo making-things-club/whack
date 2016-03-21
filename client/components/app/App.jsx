@@ -1,9 +1,12 @@
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
+
 import styles from './app.mss';
 import Hill from '../hill/Hill.jsx';
+import Cloud from '../cloud/Cloud.jsx';
 
 const { browserHistory } = ReactRouter;
 
-export default class App extends React.Component {
+export default class App extends TrackerReact(React.Component, {profiling : false}) {
 
   constructor() {
     super();
@@ -14,7 +17,6 @@ export default class App extends React.Component {
         players: Meteor.subscribe('players')
       }
     }
-    // console.log('componentWillReceiveProps this.props.params.roomId = ', this.props.params.roomId);
   }
 
   room() {
@@ -26,7 +28,7 @@ export default class App extends React.Component {
 
   player() {
     if(this.state.playerId) {
-      return Players.findOne({ _id : this.state.playerId });
+      return Players.find({ _id : this.state.playerId }).fetch();
     }
     return null;
   }
@@ -101,11 +103,26 @@ export default class App extends React.Component {
 
     return (
       <div className={styles.app}>
-        <button onClick={()=>this.onCreateRoom()}>Create room</button>
-        <button onClick={()=>this.onJoinRoom()}>Join room</button>
-        <button onClick={()=>this.onStartRound()}>Start round</button>
-        {this.getPropsWithChildren()}
-        <Hill />
+        <p>Room state : {this.room() ? this.room().state : 'meow'}</p>
+        <p>Picked player's id : {this.room() ? this.room().pickedPlayerId : 'meow'}</p>
+        <p>Picked mole's id : {this.room() ? this.room().pickedMoleId : 'meow'}</p>
+        <div style={{position: 'absolute'}} >
+          <button onClick={()=>this.onCreateRoom()}>Create room</button>
+          <button onClick={()=>this.onJoinRoom()}>Join room</button>
+          <button onClick={()=>this.onStartRound()}>Start round</button>
+        </div>
+        <div className={styles.game}>
+          {this.getPropsWithChildren()}
+        </div>
+        <div className={styles.cloudLeft}>
+          <Cloud direction="left" />
+        </div>
+        <div className={styles.cloudRight}>
+          <Cloud direction="right" />
+        </div>
+        <div className={styles.hill}>
+          <Hill />
+        </div>
       </div>
     )
   }

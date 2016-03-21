@@ -1,3 +1,11 @@
+.label {
+  display: block;
+  text-align: center;
+  font-size: 25px;
+  color: white;
+  margin-bottom: 11px;
+}
+
 .input {
   width: 100%;
   height: 50px;
