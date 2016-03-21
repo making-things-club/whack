@@ -103,13 +103,10 @@ export default class App extends TrackerReact(React.Component, {profiling : fals
 
     return (
       <div className={styles.app}>
-        <p>Room state : {this.room() ? this.room().state : 'meow'}</p>
-        <p>Picked player's id : {this.room() ? this.room().pickedPlayerId : 'meow'}</p>
-        <p>Picked mole's id : {this.room() ? this.room().pickedMoleId : 'meow'}</p>
-        <div style={{position: 'absolute'}} >
-          <button onClick={()=>this.onCreateRoom()}>Create room</button>
-          <button onClick={()=>this.onJoinRoom()}>Join room</button>
-          <button onClick={()=>this.onStartRound()}>Start round</button>
+        <div style={{position: 'fixed', zIndex:1000}} >
+          <p>Room state : {this.room() ? this.room().state : 'meow'}</p>
+          <p>Picked player's id : {this.room() ? this.room().pickedPlayerId : 'meow'}</p>
+          <p>Picked mole's id : {this.room() ? this.room().pickedMoleId : 'meow'}</p>
         </div>
         <div className={styles.game}>
           {this.getPropsWithChildren()}
