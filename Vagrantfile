@@ -9,6 +9,8 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.network "forwarded_port", guest: 3000, host: 3000
+  config.vm.network "forwarded_port", guest: 5858, host: 5858
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
 
   # Had to run as sudo to get some ports listening :(
 
