@@ -2,6 +2,8 @@
 
 A super cool whack-mole-game.
 
+[![Circle CI](https://circleci.com/gh/jjlpr/whack.svg?style=svg)](https://circleci.com/gh/jjlpr/whack)
+
 ## Install
 
 ### In VM?
