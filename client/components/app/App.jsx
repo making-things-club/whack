@@ -1,6 +1,8 @@
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 import styles from './app.mss';
+import Start from '../start/Start.jsx';
+import Room from '../room/Room.jsx';
 import Hill from '../hill/Hill.jsx';
 import Cloud from '../cloud/Cloud.jsx';
 
@@ -8,108 +10,56 @@ const { browserHistory } = ReactRouter;
 
 export default class App extends TrackerReact(React.Component, {profiling : false}) {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      subscription: {
-        room: Meteor.subscribe('rooms'),
-        players: Meteor.subscribe('players')
-      }
+      roomId: this.props.params.roomId
     }
-  }
-
-  room() {
-    if(this.state.roomId) {
-      return Rooms.findOne({ _id : this.state.roomId });
-    }
-    return null;
-  }
-
-  player() {
-    if(this.state.playerId) {
-      return Players.find({ _id : this.state.playerId }).fetch();
-    }
-    return null;
-  }
-
-  players() {
-    if(this.state.roomId) {
-      return Players.find({ roomId : this.state.roomId }).fetch();
-    }
-    return null;
   }
 
   componentWillMount() {
     const pathname = this.props.location.pathname;
-    if(!this.state.roomId) {
-      if(pathname != '/' && pathname.indexOf('/join') === -1) {
-        // if we are anywhere other than start join
-        //browserHistory.push('/');
-      }
-      else if(this.props.params.roomId) {
-        this.setState({ roomId: this.props.params.roomId });
-      }
-      else if(this.props.location.pathname != '/') {
-        // we don't have a roomId at all, so we shouldn't be anywhere else but start
-        //browserHistory.push('/');
-      }
+    if(!this.state.roomId && pathname !== '/') {
+      browserHistory.push('/');
     }
+    // TODO -- also check for playerId at some point...
   }
 
+  // Create room collection, store id on state and push players to /room/join with roomId
   onCreateRoom(roomName) {
 
     Meteor.call('createRoom', (error, result) => {
         this.setState({ roomId: result });
-        browserHistory.push('/join/' + result);
+        browserHistory.push('/room/join/' + this.state.roomId);
 		});
   }
 
-  onJoinRoom(playerName) {
-
-    const roomId = this.state.roomId;
-    Meteor.call('joinRoom', roomId, playerName, (error, result) => {
-				console.log('error = ' + error + ' result = ' + result);
-        this.setState({ playerId: result });
-        browserHistory.push('/ready');
-		});
-  }
-
-  onStartRound() {
-
-    const roomId = this.state.roomId;
-    const playerId = this.state.playerId;
-    Meteor.call('startRoom', roomId, playerId, (error, result) => {
-				console.log('error = ' + error + ' result = ' + result);
-		});
-  }
-
-  getPropsWithChildren () {
+  getChildrenWidthProps () {
 
     const childrenWithProps = React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, {
-        roomId: this.state.roomId,
-        player: this.player(), // player.name player.score
-        players: this.players(),
-        createRoom: this.onCreateRoom.bind(this),
-        joinRoom: this.onJoinRoom.bind(this),
-        startRound: this.onStartRound.bind(this),
+        roomId: this.state.roomId
       });
     });
     return childrenWithProps;
+  }
+
+  // If we have a room id either threough room creation or from url, display room, otherwise show start
+  getChildren() {
+
+    if(this.state.roomId) {
+      return this.getChildrenWidthProps();
+    }
+    return <Start createRoom={this.onCreateRoom.bind(this)} />;
   }
 
   render() {
 
     return (
       <div className={styles.app}>
-        <div style={{position: 'fixed', zIndex:1000}} >
-          <p>Room state : {this.room() ? this.room().state : 'meow'}</p>
-          <p>Picked player's id : {this.room() ? this.room().pickedPlayerId : 'meow'}</p>
-          <p>Picked mole's id : {this.room() ? this.room().pickedMoleId : 'meow'}</p>
-        </div>
         <div className={styles.game}>
-          {this.getPropsWithChildren()}
+          {this.getChildren()}
         </div>
         <div className={styles.cloudLeft}>
           <Cloud direction="left" />
