@@ -27,9 +27,44 @@ export default class Game extends React.Component {
       case 'roundEnded':
         return <RoundEnd {...childProps} />;
       case 'gameEnded':
-        return <GameEnd {...childProps} />;  
+        return <GameEnd {...childProps} />;
       default:
         return '';
+    }
+  }
+
+  getRoundPlayer() {
+    const players = this.props.players;
+    const roundPlayerId = this.props.room.pickedPlayerId;
+    let roundPlayer = null;
+    players.forEach(player => {
+      if(player._id === roundPlayerId) {
+        roundPlayer = player;
+      }
+    });
+
+    return roundPlayer;
+  }
+
+  renderRoundPlayer() {
+    const roundPlayer = this.getRoundPlayer();
+    if(roundPlayer) {
+      return (
+        <div>
+          <h1>{roundPlayer.name + '\'s'}</h1>
+          <h2>score</h2>
+          <h1>{roundPlayer.score}</h1>
+        </div>
+      );
+    }
+  }
+
+  renderPlayer() {
+    const player = this.props.player;
+    if(player.played) {
+      return (
+        <p>{player.name + '\'s score' + player.score}</p>
+      );
     }
   }
 
@@ -40,11 +75,11 @@ export default class Game extends React.Component {
     // TODO add loading, i.e. check whether subscriptions are ready
     return (
       <div>
-        <h1>Player: {this.props.player.name}</h1>
-        <h1>Score: {this.props.player.score}</h1>
+        {this.renderRoundPlayer()}
         <div>
           {this.renderChild()}
         </div>
+        {this.renderPlayer()}
       </div>
     )
   }
