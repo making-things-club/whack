@@ -1,4 +1,4 @@
-import Button from '../button/button.jsx'
+import Button from '../../ui/button/button.jsx'
 import styles from './roundEnd.mss';
 
 export default class RoundEnd extends React.Component {

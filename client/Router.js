@@ -1,14 +1,11 @@
 const { Router, Route, IndexRoute, Link, browserHistory } = ReactRouter;
 
 import App from './components/app/App.jsx';
-import Room from './components/room/Room.jsx';
-import Start from './components/start/Start.jsx';
-import Join from './components/join/Join.jsx';
-import Game from './components/game/Game.jsx';
-import Ready from './components/ready/Ready.jsx';
-import RoundReady from './components/roundReady/RoundReady.jsx';
-import Round from './components/round/Round.jsx';
-import RoundEnd from './components/roundEnd/RoundEnd.jsx';
+import Room from './components/routes/room/Room.jsx';
+import Start from './components/routes/start/Start.jsx';
+import Join from './components/routes/join/Join.jsx';
+import Ready from './components/routes/ready/Ready.jsx';
+import Game from './components/game/game/Game.jsx';
 
 Meteor.startup(function() {
   if(Meteor.isClient) {
@@ -22,7 +19,7 @@ Meteor.startup(function() {
           <IndexRoute component={Start} />
           <Route path="room" component={Room}>
             <Route path="join/:roomId" component={Join} />
-            <Route path="ready" component={Ready} />
+            <Route path="game" component={Ready} /> // TODO rename to Game
             <Route path="dev/:roomState" component={Game} />
           </Route>
         </Route>

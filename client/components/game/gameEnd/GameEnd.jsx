@@ -1,4 +1,4 @@
-import Button from '../button/button.jsx'
+import Button from '../../ui/button/button.jsx'
 import styles from './gameEnd.mss';
 
 export default class GameEnd extends React.Component {

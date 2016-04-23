@@ -1,8 +1,8 @@
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 import styles from './app.mss';
-import Start from '../start/Start.jsx';
-import Room from '../room/Room.jsx';
+import Start from '../routes/start/Start.jsx';
+import Room from '../routes/room/Room.jsx';
 
 const { browserHistory } = ReactRouter;
 

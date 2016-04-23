@@ -1,9 +1,9 @@
 import styles from './ready.mss';
-import Title from '../title/title.jsx'
-import GameLocation from '../gameLocation/gameLocation.jsx'
-import Paragraph from '../paragraph/paragraph.jsx'
-import PlayersList from '../playersList/playersList.jsx'
-import Button from '../button/button.jsx'
+import Title from '../../ui/title/title.jsx'
+import GameLocation from '../../ui/gameLocation/gameLocation.jsx'
+import Paragraph from '../../ui/paragraph/paragraph.jsx'
+import PlayersList from '../../ui/playersList/playersList.jsx'
+import Button from '../../ui/button/button.jsx'
 
 export default class Ready extends React.Component {
 

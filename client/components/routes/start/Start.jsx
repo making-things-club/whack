@@ -1,7 +1,7 @@
 import styles from './start.mss'
-import Title from '../title/title.jsx'
-import Button from '../button/button.jsx'
-import Paragraph from '../paragraph/paragraph.jsx'
+import Title from '../../ui/title/title.jsx'
+import Button from '../../ui/button/button.jsx'
+import Paragraph from '../../ui/paragraph/paragraph.jsx'
 
 export default class Start extends React.Component {
 

@@ -1,8 +1,8 @@
 import styles from './join.mss';
-import Title from '../title/title.jsx'
-import GameLocation from '../gameLocation/gameLocation.jsx'
-import Button from '../button/button.jsx'
-import TextInput from '../textInput/textInput.jsx'
+import Title from '../../ui/title/title.jsx'
+import GameLocation from '../../ui/gameLocation/gameLocation.jsx'
+import Button from '../../ui/button/button.jsx'
+import TextInput from '../../ui/textInput/textInput.jsx'
 
 export default class Join extends React.Component {
 
