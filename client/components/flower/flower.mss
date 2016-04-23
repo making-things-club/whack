@@ -1,3 +1,0 @@
-.flower {
-    width: 50%;
-}

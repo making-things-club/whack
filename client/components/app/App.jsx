@@ -3,8 +3,6 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import styles from './app.mss';
 import Start from '../start/Start.jsx';
 import Room from '../room/Room.jsx';
-import Hill from '../hill/Hill.jsx';
-import Cloud from '../cloud/Cloud.jsx';
 
 const { browserHistory } = ReactRouter;
 
@@ -60,15 +58,6 @@ export default class App extends TrackerReact(React.Component, {profiling : fals
       <div className={styles.app}>
         <div className={styles.game}>
           {this.getChildren()}
-        </div>
-        <div className={styles.cloudLeft}>
-          <Cloud direction="left" />
-        </div>
-        <div className={styles.cloudRight}>
-          <Cloud direction="right" />
-        </div>
-        <div className={styles.hill}>
-          <Hill />
         </div>
       </div>
     )
