@@ -1,17 +1,15 @@
-// var playersStartedDelay = 1*1000; //10 * 1000;
 var playerPickedDelay = 1*1000; //10 * 1000;
 var moleDuration = 5*1000; //5 * 1000;
 var roundDuration = 15 * 1000;
-var endRoundDelay = 10 * 1000;
 
-var playersStartedTimeout;
-var playersPickedTimeout;
+/*var playerPickedTimeout;
 var moleTimeout;
-var roundTimeout;
-var endRoundTimeout;
+var roundTimeout;*/
+
+var timeouts = {};
 
 // check whether all joined players have pressed start
-playersStarted = function playersStarted(roomId, playerId) {
+playersStarted = (roomId, playerId) => {
   Players.update({ _id : playerId}, { $set : { joined : true }});
   var players = Players.find({ roomId : roomId });
   var joinedPlayers = Players.find({ roomId : roomId, joined : true });
@@ -19,7 +17,7 @@ playersStarted = function playersStarted(roomId, playerId) {
 }
 
 // pick a random player from the list of players
-pickPlayer = function pickPlayer(roomId) {
+pickPlayer = (roomId) => {
   // TODO we need to make sure we don't pick the same player multiple times!!!
   var random = Math.random();
   var player = Players.findOne({played: false, roomId: roomId, random: {$gte: random}}, {sort: {random:1}});
@@ -29,7 +27,7 @@ pickPlayer = function pickPlayer(roomId) {
   return player;
 }
 
-pickMole = function pickMole(roomId, pickedMoleId) {
+pickMole = (roomId, pickedMoleId) => {
   console.log('pickMole roomId = ' + roomId + ' pickedMoleId = ' + pickedMoleId);
   var random = Math.random();
   var player = Players.findOne({roomId: roomId, _id: {$ne: pickedMoleId}, random: {$gte: random}}, {sort: {random:1}});
@@ -40,40 +38,51 @@ pickMole = function pickMole(roomId, pickedMoleId) {
   return player;
 }
 
-startRound = function startRound(roomId) {
+startRound = (roomId) => {
+  clearAllTimeouts(roomId);
   var pickedPlayerId = pickPlayer(roomId)._id;
   var now = Date.now();
   Rooms.update({ _id : roomId}, { $set : { pickedPlayerId : pickedPlayerId, state : 'playerPicked', roundStartTime : now, roundDuration : roundDuration}}); // On the front end compare this tostored playerId
   Players.update({ _id : pickedPlayerId}, { $set : { played : true }});
-  playerPickedTimeout = Meteor.setTimeout(function() {
+  timeouts[roomId].playerPickedTimeout = Meteor.setTimeout(function() {
     startMole(roomId, '')
   }, playerPickedDelay);
-  roundTimeout = Meteor.setTimeout(function() {
+  timeouts[roomId].roundTimeout = Meteor.setTimeout(function() {
     endRound(roomId)
   }, playerPickedDelay + roundDuration);
 }
 
-startMole = function startMole(roomId, pickedMoleId) {
-  moleTimeout = Meteor.setTimeout(function() {
+startMole = (roomId, pickedMoleId) => {
+  timeouts[roomId].moleTimeout = Meteor.setTimeout(function() {
     showMole(roomId, pickedMoleId)
   }, moleDuration);
 }
 
-showMole = function showMole(roomId, pickedMoleId) {
+showMole = (roomId, pickedMoleId) => {
   var pickedMoleId = pickMole(roomId, pickedMoleId)._id;
   Rooms.update({ _id : roomId}, { $set : { pickedMoleId : pickedMoleId, state : 'molePicked'}}); // On the front end compare this tostored playerId
   startMole(roomId, pickedMoleId);
 }
 
-endRound = function endRound(roomId) {
+endRound = (roomId) => {
   console.log('endRound');
-  Meteor.clearTimeout(moleTimeout);
+  clearAllTimeouts(roomId);
   var notPlayedPlayers = Players.find({ roomId : roomId, played : false });
   if(notPlayedPlayers.count() > 0) {
     Rooms.update({ _id : roomId }, {$set : {rounds : 0, state : 'roundEnded', roundStartTime : 0, roundDuration : 0}});
   }
   else {
+    delete timeouts[roomId];
     Rooms.update({ _id : roomId }, {$set : {rounds : 0, state : 'gameEnded', roundStartTime : 0, roundDuration : 0}});
+  }
+}
+
+clearAllTimeouts = (roomId) => {
+  const roomTimeouts = timeouts[roomId];
+  if(roomTimeouts) {
+    Meteor.clearTimeout(roomTimeouts.playerPickedTimeout);
+    Meteor.clearTimeout(roomTimeouts.moleTimeout);
+    Meteor.clearTimeout(roomTimeouts.roundTimeout);
   }
 }
 
@@ -81,7 +90,9 @@ Meteor.methods({
 
   'createRoom': function() {
     console.log('createRoom');
-    return Rooms.insert({ rounds : 0, state : '', roundStartTime : 0, roundDuration : 0, pickedPlayerId : '', pickedMoleId : ''}); // returns room._id
+    const roomId = Rooms.insert({ rounds : 0, state : '', roundStartTime : 0, roundDuration : 0, pickedPlayerId : '', pickedMoleId : ''});
+    timeouts[roomId] = {};
+    return  roomId;
   },
 
   'joinRoom': function(roomId, playerName) {
@@ -105,18 +116,11 @@ Meteor.methods({
     // TODO return error message for room not found
   },
 
-  /*'startRound': function(roomId) {
-    // pick random player to play the damn thing
-    playersStartedTimeout = Meteor.setTimeout(function() {
-      startGame(roomId)
-    }, playersStartedDelay);
-  },*/
-
   'whackMole': function(roomId, moleId) {
     console.log('whackMole roomId = ' + roomId + ' moleId = ' + moleId);
     var room = Rooms.findOne({ _id : roomId});
     if(room.pickedMoleId === moleId && room.state === 'molePicked') {
-      Meteor.clearTimeout(moleTimeout);
+      Meteor.clearTimeout(timeouts[roomId].moleTimeout);
       var playerId = room.pickedPlayerId;
       Players.update({ _id : playerId}, {$inc : { score : 1}});
       showMole(roomId, room.pickedMoleId);
