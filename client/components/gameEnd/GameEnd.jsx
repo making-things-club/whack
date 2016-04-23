@@ -5,7 +5,13 @@ export default class GameEnd extends React.Component {
 
   renderPlayers() {
     return this.props.players.map((player)=>{
-      return <p>{player.name + ': ' + player.score}</p>
+      var currentPlayer = (player._id === this.props.player._id) ? ' (You!)' : '';
+      return(
+        <p>
+          {player.name + ': ' + player.score}
+          <span>{currentPlayer}</span>
+        </p>
+      )
     })
   }
 
