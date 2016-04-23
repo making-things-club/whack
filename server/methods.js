@@ -2,10 +2,6 @@ var playerPickedDelay = 1*1000; //10 * 1000;
 var moleDuration = 5*1000; //5 * 1000;
 var roundDuration = 15 * 1000;
 
-/*var playerPickedTimeout;
-var moleTimeout;
-var roundTimeout;*/
-
 var timeouts = {};
 
 // check whether all joined players have pressed start
@@ -18,7 +14,6 @@ playersStarted = (roomId, playerId) => {
 
 // pick a random player from the list of players
 pickPlayer = (roomId) => {
-  // TODO we need to make sure we don't pick the same player multiple times!!!
   var random = Math.random();
   var player = Players.findOne({played: false, roomId: roomId, random: {$gte: random}}, {sort: {random:1}});
   if(!player) {
@@ -28,13 +23,11 @@ pickPlayer = (roomId) => {
 }
 
 pickMole = (roomId, pickedMoleId) => {
-  console.log('pickMole roomId = ' + roomId + ' pickedMoleId = ' + pickedMoleId);
   var random = Math.random();
   var player = Players.findOne({roomId: roomId, _id: {$ne: pickedMoleId}, random: {$gte: random}}, {sort: {random:1}});
   if(!player) {
     player = Players.findOne({roomId: roomId, _id: {$ne: pickedMoleId}, random: {$lte: random}}, {sort: {random:1}});
   }
-  console.log('pickMole player.name = ' + player.name);
   return player;
 }
 
@@ -65,7 +58,6 @@ showMole = (roomId, pickedMoleId) => {
 }
 
 endRound = (roomId) => {
-  console.log('endRound');
   clearAllTimeouts(roomId);
   var notPlayedPlayers = Players.find({ roomId : roomId, played : false });
   if(notPlayedPlayers.count() > 0) {
@@ -88,15 +80,13 @@ clearAllTimeouts = (roomId) => {
 
 Meteor.methods({
 
-  'createRoom': function() {
-    console.log('createRoom');
+  createRoom: () => {
     const roomId = Rooms.insert({ rounds : 0, state : '', roundStartTime : 0, roundDuration : 0, pickedPlayerId : '', pickedMoleId : ''});
     timeouts[roomId] = {};
     return  roomId;
   },
 
-  'joinRoom': function(roomId, playerName) {
-    console.log('joinRoom playerName = ' + playerName + ' roomId = ' + roomId);
+  joinRoom: (roomId, playerName) => {
     var room = Rooms.findOne({ _id : roomId });
     if(room) {
       var random = Math.random();
@@ -104,7 +94,7 @@ Meteor.methods({
     }
   },
 
-  'startRoom': function(roomId, playerId) {
+  startRoom: (roomId, playerId) => {
     var room = Rooms.findOne({ _id : roomId });
     if(room) {
 
@@ -116,8 +106,7 @@ Meteor.methods({
     // TODO return error message for room not found
   },
 
-  'whackMole': function(roomId, moleId) {
-    console.log('whackMole roomId = ' + roomId + ' moleId = ' + moleId);
+  whackMole: (roomId, moleId) => {
     var room = Rooms.findOne({ _id : roomId});
     if(room.pickedMoleId === moleId && room.state === 'molePicked') {
       Meteor.clearTimeout(timeouts[roomId].moleTimeout);
