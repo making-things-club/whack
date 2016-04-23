@@ -1,7 +1,7 @@
-var playersStartedDelay = 1*1000; //10 * 1000;
+// var playersStartedDelay = 1*1000; //10 * 1000;
 var playerPickedDelay = 1*1000; //10 * 1000;
-var moleDuration = 10*1000; //5 * 1000;
-var roundDuration = 60 * 1000;
+var moleDuration = 5*1000; //5 * 1000;
+var roundDuration = 15 * 1000;
 var endRoundDelay = 10 * 1000;
 
 var playersStartedTimeout;
@@ -105,12 +105,12 @@ Meteor.methods({
     // TODO return error message for room not found
   },
 
-  'startRound': function(roomId) {
+  /*'startRound': function(roomId) {
     // pick random player to play the damn thing
     playersStartedTimeout = Meteor.setTimeout(function() {
       startGame(roomId)
     }, playersStartedDelay);
-  },
+  },*/
 
   'whackMole': function(roomId, moleId) {
     console.log('whackMole roomId = ' + roomId + ' moleId = ' + moleId);
