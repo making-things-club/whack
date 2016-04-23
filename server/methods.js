@@ -62,17 +62,7 @@ endRound = (roomId) => {
   clearAllTimeouts(roomId);
   var notPlayedPlayers = Players.find({ roomId : roomId, played : false });
   if(notPlayedPlayers.count() > 0) {
-    //TMP
-    var players = Players.find({ roomId : roomId });
-    var joinedPlayers = Players.find({ roomId : roomId, joined : true });
-    console.log('1 players = ' + players.count() + ' joinedPlayers = ' + joinedPlayers.count());
-    //TMP
     Players.update({ roomId : roomId }, { $set : { joined : false }}, {multi : true });
-    //TMP
-    var players = Players.find({ roomId : roomId });
-    var joinedPlayers = Players.find({ roomId : roomId, joined : true });
-    console.log('2 players = ' + players.count() + ' joinedPlayers = ' + joinedPlayers.count());
-    //TMP
     Rooms.update({ _id : roomId }, {$set : {rounds : 0, state : 'roundEnded', roundStartTime : 0, roundDuration : 0}});
   }
   else {
