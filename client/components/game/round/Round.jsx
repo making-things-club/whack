@@ -2,7 +2,23 @@ import Countdown from '../../ui/countdown/Countdown';
 import Ingredient from '../../ui/ingredient/Ingredient';
 import styles from './round.mss';
 
+import Tone from 'tone';
+import {Sampler} from 'tone';
+
 export default class Round extends React.Component {
+  constructor(props) {
+    super(props);
+
+    var sampler = new Sampler({
+      samples : {
+        onion : '../audio/onion-chop.wav'
+      }
+    }).toMaster();
+
+    this.state = {
+      sampler: sampler
+    }
+  }
 
   renderIngredient() {
     if(this.props.player._id === this.props.room.pickedMoleId) {
@@ -14,9 +30,10 @@ export default class Round extends React.Component {
 
   onIngredientClick() {
     console.log('Mole clicked!');
+    this.state.sampler.triggerAttack('samples.onion');
     Meteor.call('whackMole', this.props.room._id, this.props.room.pickedMoleId, (error, result) => {
         console.log(error, result);
-		});
+    });
   }
 
   render() {
