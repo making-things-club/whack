@@ -23,11 +23,7 @@ Meteor.startup(function() {
           <Route path="room" component={Room}>
             <Route path="join/:roomId" component={Join} />
             <Route path="ready" component={Ready} />
-
-            <Route path="game" component={Game} />
-            <Route path="round-ready" component={RoundReady} />
-            <Route path="round" component={Round} />
-            <Route path="round-end" component={RoundEnd} />
+            <Route path="dev/:roomState" component={Game} />
           </Route>
         </Route>
       </Router>
