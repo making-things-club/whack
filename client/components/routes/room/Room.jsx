@@ -1,6 +1,6 @@
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import Ready from '../ready/Ready';
-import Game from '../game/Game';
+import Game from '../../game/game/Game';
 import styles from './room.mss';
 
 const { browserHistory } = ReactRouter;
@@ -18,15 +18,7 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('nextProps = ', nextProps);
-    console.log('nextState = ', nextState);
-    return true;
-  }
-
   room() {
-    let meow = Rooms.findOne({ _id : this.props.roomId });
-    console.log('room = ', meow);
     return Rooms.findOne({ _id : this.props.roomId });
   }
 
@@ -44,7 +36,7 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
     Meteor.call('joinRoom', roomId, playerName, (error, result) => {
 				console.log('error = ' + error + ' result = ' + result);
         this.setState({ playerId: result });
-        browserHistory.push('/room/ready');
+        browserHistory.push('/room/game');
 		});
   }
 
@@ -57,20 +49,6 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
 
 		});
   }
-
-  /*getChildrenWidthProps () {
-
-    const childrenWithProps = React.Children.map(this.props.children, (child) => {
-      return React.cloneElement(child, {
-        roomId: this.props.roomId, // do we need this???
-        player: this.player(), // player.name player.score
-        players: this.players(),
-        joinRoom: this.onJoinRoom.bind(this),
-        startRound: this.onStartRound.bind(this),
-      });
-    });
-    return childrenWithProps;
-  }*/
 
   renderChild() {
     const roomState = this.room() ? this.room().state : null;
@@ -91,16 +69,6 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
       });
       return childrenWithProps;
     }
-    /*switch(roomState) {
-      case 'playerPicked':
-        return <RoundReady {...childProps}/>
-      case 'mmolePicked':
-        return <Round {...childProps} />
-      case 'roundEnd':
-        return <RoundEnd {...childProps} />
-      default:
-        return <Ready {...childProps} />
-    }*/
   }
 
   render() {

@@ -2,7 +2,7 @@ import RoundReady from '../roundReady/RoundReady';
 import Round from '../round/Round';
 import RoundEnd from '../roundEnd/RoundEnd';
 import GameEnd from '../gameEnd/GameEnd';
-import Countdown from '../countdown/Countdown';
+import Countdown from '../../ui/countdown/Countdown';
 
 const { browserHistory } = ReactRouter;
 
