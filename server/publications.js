@@ -1,14 +1,13 @@
-Meteor.publish('rooms', function() {
-
-	return Rooms.find();
+Meteor.publish('room', roomId => {
+		if(!roomId) {
+			return null;
+		}
+		return Rooms.find({_id : roomId});
 });
 
-Meteor.publish('rounds', function() {
-
-	return Rounds.find();
-});
-
-Meteor.publish('players', function() {
-
-	return Players.find();
+Meteor.publish('players', roomId => {
+	if(!roomId) {
+		return null;
+	}
+	return Players.find({ roomId : roomId });
 });

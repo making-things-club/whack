@@ -1,5 +1,5 @@
 .button {
-  position: absolute;
+  position: relative;
   bottom: 0;
   line-height: 66px;
   width: 100%;
