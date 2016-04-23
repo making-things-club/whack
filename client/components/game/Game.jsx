@@ -35,6 +35,7 @@ export default class Game extends React.Component {
     // TODO add loading, i.e. check whether subscriptions are ready
     return (
       <div>
+        <h1>Score: {this.props.player.score}</h1>
         <div>
           {this.renderChild()}
         </div>

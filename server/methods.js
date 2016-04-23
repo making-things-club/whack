@@ -1,7 +1,7 @@
-var playersStartedDelay = 10 * 1000;
-var playerPickedDelay = 10 * 1000;
-var moleDuration = 5 * 1000;
-var roundDuration = 30 * 1000;
+var playersStartedDelay = 1*1000; //10 * 1000;
+var playerPickedDelay = 1*1000; //10 * 1000;
+var moleDuration = 10*1000; //5 * 1000;
+var roundDuration = 60 * 1000;
 var endRoundDelay = 10 * 1000;
 
 var playersStartedTimeout;
@@ -30,7 +30,7 @@ pickPlayer = function pickPlayer(roomId) {
 }
 
 pickMole = function pickMole(roomId, pickedMoleId) {
-  console.log('pickMole roomId = ' + roomId);
+  console.log('pickMole roomId = ' + roomId + ' pickedMoleId = ' + pickedMoleId);
   var random = Math.random();
   var player = Players.findOne({roomId: roomId, _id: {$ne: pickedMoleId}, random: {$gte: random}}, {sort: {random:1}});
   if(!player) {
@@ -113,12 +113,13 @@ Meteor.methods({
   },
 
   'whackMole': function(roomId, moleId) {
+    console.log('whackMole roomId = ' + roomId + ' moleId = ' + moleId);
     var room = Rooms.findOne({ _id : roomId});
     if(room.pickedMoleId === moleId && room.state === 'molePicked') {
       Meteor.clearTimeout(moleTimeout);
       var playerId = room.pickedPlayerId;
       Players.update({ _id : playerId}, {$inc : { score : 1}});
-      showMole(roomId);
+      showMole(roomId, room.pickedMoleId);
     }
   }
 });
