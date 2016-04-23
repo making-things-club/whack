@@ -35,8 +35,7 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
   }
 
   players() {
-    return Players.find({ roomId : this.props.roomId }).fetch();
-    // TODO once all peoples have joined, move onto game screens
+    return Players.find({ roomId : this.props.roomId }, {sort: {score: -1}}).fetch();
   }
 
   onJoinRoom(playerName) {
