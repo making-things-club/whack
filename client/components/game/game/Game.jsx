@@ -12,36 +12,41 @@ export default class Game extends React.Component {
     super(props);
   }
 
-  getRoomState() {
+  getProps() {
+    console.log(' *** this.props = ', JSON.stringify(this.props));
     if(this.props.params && this.props.params.roomState) {
-      return this.props.params.roomState;
+      const fakeProps = JSON.parse( '{"roomId":"e7ehuii2qnt5weQgb","player":{"_id":"4dyPCM959abH3j7Y9","name":"Judit","roomId":"e7ehuii2qnt5weQgb","played":false,"score":0,"joined":true,"random":0.5091277295723557},"players":[{"_id":"4dyPCM959abH3j7Y9","name":"Judit","roomId":"e7ehuii2qnt5weQgb","played":false,"score":0,"joined":true,"random":0.5091277295723557},{"_id":"zA8ieZDdmnnnRi4un","name":"Pete","roomId":"e7ehuii2qnt5weQgb","played":false,"score":0,"joined":true,"random":0.44454288529232144},{"_id":"AvoYQ29Ev6mS2JCmf","name":"James","roomId":"e7ehuii2qnt5weQgb","played":true,"score":0,"joined":true,"random":0.2457792074419558}],"room":{"_id":"e7ehuii2qnt5weQgb","rounds":0,"state":"' + this.props.params.roomState + '","roundStartTime":1461431035379,"roundDuration":15000,"pickedPlayerId":"AvoYQ29Ev6mS2JCmf","pickedMoleId":""}}');
+      return fakeProps;
     }
+    return this.props;
+  }
+
+  getRoomState() {
     if(this.props.room) {
       return this.props.room.state;
     }
     return null;
   }
 
-  renderChild() {
+  renderChild(props) {
     let roomState = this.getRoomState();
-    const childProps = this.props;
     switch(roomState) {
       case 'playerPicked':
-        return <RoundReady {...childProps}/>;
+        return <RoundReady {...props}/>;
       case 'molePicked':
-        return <Round {...childProps} />;
+        return <Round {...props} />;
       case 'roundEnded':
-        return <RoundEnd {...childProps} />;
+        return <RoundEnd {...props} />;
       case 'gameEnded':
-        return <GameEnd {...childProps} />;
+        return <GameEnd {...props} />;
       default:
         return '';
     }
   }
 
-  getRoundPlayer() {
-    const players = this.props.players;
-    const roundPlayerId = this.props.room.pickedPlayerId;
+  getRoundPlayer(props) {
+    const players = props.players;
+    const roundPlayerId = props.room.pickedPlayerId;
     let roundPlayer = null;
     players.forEach(player => {
       if(player._id === roundPlayerId) {
@@ -52,8 +57,8 @@ export default class Game extends React.Component {
     return roundPlayer;
   }
 
-  renderRoundPlayer() {
-    const roundPlayer = this.getRoundPlayer();
+  renderRoundPlayer(props) {
+    const roundPlayer = this.getRoundPlayer(props);
     if(roundPlayer) {
       return (
         <div>
@@ -65,8 +70,8 @@ export default class Game extends React.Component {
     }
   }
 
-  renderPlayer() {
-    const player = this.props.player;
+  renderPlayer(props) {
+    const player = props.player;
     if(player.played) {
       return (
         <p>{player.name + '\'s score' + player.score}</p>
@@ -77,18 +82,16 @@ export default class Game extends React.Component {
   render() {
 
     // const pickedPlayerName = this.props.players.findOne({_id: this.props.room.pickedPlayerId}).name;
-
+    const props = this.getProps();
     // TODO add loading, i.e. check whether subscriptions are ready
     return (
       <div>
-        {this.renderRoundPlayer()}
-        <h1>Player: {this.props.player.name}</h1>
-        <h2>Score: {this.props.player.score}</h2>
+        {this.renderRoundPlayer(props)}
         <Countdown />
         <div>
-          {this.renderChild()}
+          {this.renderChild(props)}
         </div>
-        {this.renderPlayer()}
+        {this.renderPlayer(props)}
       </div>
     )
   }

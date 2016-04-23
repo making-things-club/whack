@@ -17,10 +17,11 @@ export default class App extends TrackerReact(React.Component, {profiling : fals
   }
 
   componentWillMount() {
-    const pathname = this.props.location.pathname;
+    // UNCOMMENT THIS IN FINAL
+    /*const pathname = this.props.location.pathname;
     if(!this.state.roomId && pathname !== '/') {
       browserHistory.push('/');
-    }
+    }*/
     // TODO -- also check for playerId at some point...
   }
 
@@ -45,6 +46,9 @@ export default class App extends TrackerReact(React.Component, {profiling : fals
 
   // If we have a room id either threough room creation or from url, display room, otherwise show start
   getChildren() {
+
+    // COMMENT OUT LINE BELOW IN FINAL
+    return this.getChildrenWidthProps();
 
     if(this.state.roomId) {
       return this.getChildrenWidthProps();

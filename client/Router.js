@@ -20,8 +20,8 @@ Meteor.startup(function() {
           <Route path="room" component={Room}>
             <Route path="join/:roomId" component={Join} />
             <Route path="game" component={Ready} /> // TODO rename to Game
-            <Route path="dev/:roomState" component={Game} />
           </Route>
+          <Route path="dev/:roomState" component={Game} />
         </Route>
       </Router>
     ), root);
