@@ -1,4 +1,6 @@
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import Ready from '../ready/Ready';
+import Game from '../game/Game';
 import styles from './room.mss';
 
 const { browserHistory } = ReactRouter;
@@ -16,7 +18,15 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('nextProps = ', nextProps);
+    console.log('nextState = ', nextState);
+    return true;
+  }
+
   room() {
+    let meow = Rooms.findOne({ _id : this.props.roomId });
+    console.log('room = ', meow);
     return Rooms.findOne({ _id : this.props.roomId });
   }
 
@@ -26,6 +36,7 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
 
   players() {
     return Players.find({ roomId : this.props.roomId }).fetch();
+    // TODO once all peoples have joined, move onto game screens
   }
 
   onJoinRoom(playerName) {
@@ -44,10 +55,11 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
     const playerId = this.state.playerId;
     Meteor.call('startRoom', roomId, playerId, (error, result) => {
 				console.log('error = ' + error + ' result = ' + result);
+
 		});
   }
 
-  getChildrenWidthProps () {
+  /*getChildrenWidthProps () {
 
     const childrenWithProps = React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, {
@@ -59,6 +71,37 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
       });
     });
     return childrenWithProps;
+  }*/
+
+  renderChild() {
+    const roomState = this.room() ? this.room().state : null;
+    const childProps = {
+      roomId: this.props.roomId, // do we need this???
+      player: this.player(), // player.name player.score
+      players: this.players(),
+      room: this.room(),
+      joinRoom: this.onJoinRoom.bind(this),
+      startRound: this.onStartRound.bind(this)
+    };
+    if(roomState) {
+      return <Game {...childProps} />
+    }
+    else {
+      const childrenWithProps = React.Children.map(this.props.children, (child) => {
+        return React.cloneElement(child, childProps);
+      });
+      return childrenWithProps;
+    }
+    /*switch(roomState) {
+      case 'playerPicked':
+        return <RoundReady {...childProps}/>
+      case 'mmolePicked':
+        return <Round {...childProps} />
+      case 'roundEnd':
+        return <RoundEnd {...childProps} />
+      default:
+        return <Ready {...childProps} />
+    }*/
   }
 
   render() {
@@ -72,7 +115,7 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
           <p>Picked mole's id : {this.room() ? this.room().pickedMoleId : 'meow'}</p>
         </div>
         <div className={styles.game}>
-          {this.getChildrenWidthProps()}
+          {this.renderChild()}
         </div>
       </div>
     )

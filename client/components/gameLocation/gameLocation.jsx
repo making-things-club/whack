@@ -16,13 +16,13 @@ export default class GameLocation extends React.Component {
   getURL() {
     const {hostname, port} = window.location
     return (port === 80)
-              ? `${hostname}/join/${this.props.roomId}`
-              : `${hostname}:${port}/join/${this.props.roomId}`
+              ? `${hostname}/room/join/${this.props.roomId}`
+              : `${hostname}:${port}/room/join/${this.props.roomId}`
   }
 
   render() {
     const URL = this.getURL()
-    const instruction = (this.state.linkCopied) 
+    const instruction = (this.state.linkCopied)
                           ? 'Copied to clipboard'
                           : 'Tap to copy to clipboard.'
     return(
