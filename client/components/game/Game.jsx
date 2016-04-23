@@ -12,14 +12,19 @@ export default class Game extends React.Component {
     super(props);
   }
 
+  getRoomState() {
+    if(this.props.params && this.props.params.roomState) {
+      return this.props.params.roomState;
+    }
+    if(this.props.room) {
+      return this.props.room.state;
+    }
+    return null;
+  }
+
   renderChild() {
-    const roomState = this.props.room ? this.props.room.state : null;
-    const childProps = this.props; /*{
-      roomId: this.props.roomId, // do we need this???
-      player: this.player(), // player.name player.score
-      players: this.players(),
-      room: this.room()
-    };*/
+    let roomState = this.getRoomState();
+    const childProps = this.props;
     switch(roomState) {
       case 'playerPicked':
         return <RoundReady {...childProps}/>;
