@@ -27,7 +27,7 @@
   display: block;
   color: white;
   margin-bottom: 1rem;
-  font-family: sans-serif;
-  font-size: 1.25rem;
+  font-family: $font-sans;
+  font-size: 1.125rem;
   text-align: center;
 }
