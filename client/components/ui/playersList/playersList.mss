@@ -1,21 +1,20 @@
 .title {
   margin-bottom: 9px;
   text-align: center;
-  text-transform: uppercase;
-  text-shadow: 4px 4px 0px rgba(95,70,119,0.2);
   font-size: 25px;
   color: white;
+  font-style: italic;
+  font-weight: bold;
 }
 
 .playerList {
   box-sizing: border-box;
-  display: block;    
+  display: block;
   margin: 0 20px;
   background-color: white;
   padding: 20px;
   text-align: center;
   min-height: 80px;
-  box-shadow: 4px 5px 0px 0px rgba(181,163,199,0.5);
 }
 
 .player {
