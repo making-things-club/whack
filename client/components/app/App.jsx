@@ -1,4 +1,5 @@
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import getChildrenWidthProps from '../../utils/utils';
 
 import styles from './app.mss';
 import Start from '../routes/start/Start.jsx';
@@ -27,32 +28,28 @@ export default class App extends TrackerReact(React.Component, {profiling : fals
 
   // Create room collection, store id on state and push players to /room/join with roomId
   onCreateRoom(roomName) {
-
     Meteor.call('createRoom', (error, result) => {
+        console.log('onCreateRoom ', error, result);
         this.setState({ roomId: result });
         browserHistory.push('/room/join/' + this.state.roomId);
 		});
-  }
-
-  getChildrenWidthProps () {
-
-    const childrenWithProps = React.Children.map(this.props.children, (child) => {
-      return React.cloneElement(child, {
-        roomId: this.state.roomId,
-        createRoom: this.onCreateRoom.bind(this)
-      });
-    });
-    return childrenWithProps;
   }
 
   // If we have a room id either threough room creation or from url, display room, otherwise show start
   getChildren() {
 
     // COMMENT OUT LINE BELOW IN FINAL
-    //return this.getChildrenWidthProps();
+
+    return getChildrenWidthProps(this.props.children, {
+      roomId: this.state.roomId,
+      createRoom: this.onCreateRoom.bind(this)
+    });
 
     if(this.state.roomId) {
-      return this.getChildrenWidthProps();
+      return getChildrenWidthProps(this.props.children, {
+        roomId: this.state.roomId,
+        createRoom: this.onCreateRoom.bind(this)
+      });
     }
     return <Start createRoom={this.onCreateRoom.bind(this)} />;
   }

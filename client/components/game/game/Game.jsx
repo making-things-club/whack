@@ -80,9 +80,7 @@ export default class Game extends React.Component {
 
   render() {
 
-    // const pickedPlayerName = this.props.players.findOne({_id: this.props.room.pickedPlayerId}).name;
     const props = this.getProps();
-    // TODO add loading, i.e. check whether subscriptions are ready
     return (
       <div>
         {this.renderRoundPlayer(props)}

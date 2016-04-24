@@ -1,4 +1,5 @@
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import getChildrenWidthProps from '../../../utils/utils';
 import Ready from '../ready/Ready';
 import Game from '../../game/game/Game';
 
@@ -63,10 +64,7 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
       return <Game {...childProps} />
     }
     else {
-      const childrenWithProps = React.Children.map(this.props.children, (child) => {
-        return React.cloneElement(child, childProps);
-      });
-      return childrenWithProps;
+      return getChildrenWidthProps(this.props.children, childProps);
     }
   }
 
@@ -75,11 +73,6 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
     // TODO add loading, i.e. check whether subscriptions are ready
     return (
       <div>
-        <div style={{position: 'absolute', zIndex:1000}} >
-          <p>Room state : {this.room() ? this.room().state : 'meow'}</p>
-          <p>Picked player's id : {this.room() ? this.room().pickedPlayerId : 'meow'}</p>
-          <p>Picked mole's id : {this.room() ? this.room().pickedMoleId : 'meow'}</p>
-        </div>
         {this.renderChild()}
       </div>
     )
