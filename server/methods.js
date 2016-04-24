@@ -84,6 +84,7 @@ Meteor.methods({
 
   createRoom: () => {
     const roomId = Rooms.insert({ rounds : 0, state : '', roundStartTime : 0, roundDuration : 0, pickedPlayerId : '', pickedMoleId : ''});
+    console.log('createRoom roomId = ' + roomId);
     timeouts[roomId] = {};
     return  roomId;
   },
