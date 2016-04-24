@@ -27,7 +27,7 @@ export default class GameLocation extends React.Component {
                           : 'Tap to copy to clipboard.'
     return(
         <button ref="button" className={styles.container} onClick={()=>this.setState({linkCopied:true })} data-clipboard-text={`http://${URL}`}>
-          <span className={styles.title}>
+          <span className={styles.instructions}>
             Share this link so others can join your game
           </span>
           <span className={styles.url}>

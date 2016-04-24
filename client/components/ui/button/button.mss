@@ -23,3 +23,7 @@
   color: $black;
   outline: none;
 }
+
+.button:disabled {
+  background-color: transparent;
+}

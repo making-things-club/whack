@@ -14,7 +14,7 @@
 }
 
 .subTitle {
-  color: #A2936C;
+  color: $lightBrown;
   text-transform: uppercase;
   text-align: center;
   margin: 0;

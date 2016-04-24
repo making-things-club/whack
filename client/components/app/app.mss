@@ -13,5 +13,5 @@ body {
     box-sizing: border-box;
     max-width: 400px;
     margin: 0 auto;
-    padding: 10px 20px;
+    padding: 10px 10px;
 }
