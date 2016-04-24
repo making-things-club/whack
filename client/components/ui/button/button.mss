@@ -11,6 +11,11 @@
   font-size: 25px;
   outline: none;
   cursor: pointer;
+  transition: background 200ms;
+}
+
+.button:hover {
+  background-color: #444;
 }
 
 .button: active {

@@ -1,6 +1,6 @@
-var playerPickedDelay = 1*1000; //10 * 1000;
-var moleDuration = 5*1000; //5 * 1000;
-var roundDuration = 15 * 1000;
+var playerPickedDelay = 1*1000;
+var moleDuration = 3*1000;
+var roundDuration = 30 * 1000;
 
 var timeouts = {};
 

@@ -4,7 +4,19 @@ export default class Ingredient extends React.Component {
 
   constructor() {
     super();
+    this.preloadImages();
     this.state = this.setInitialIngredientState();
+  }
+
+  preloadImages () {
+    const ingredients = ['avocado', 'garlic', 'lime'];
+    ingredients.forEach((ingredient) => {
+      var img = new Image();
+      var imgHit = new Image();
+      img.src = `/images/ingredient-${ingredient}.svg`;
+      imgHit.src = `/images/ingredient-${ingredient}-hit.svg`;
+      img.onload = (e) => { console.log(e, this, 'loaded'); };
+    });
   }
 
   ingredientClicked (e) {
@@ -39,7 +51,7 @@ export default class Ingredient extends React.Component {
     let ingredient = this.state.ingredient;
     if (this.state.isHit) { ingredient += 'Hit'; }
     return (
-      <a href="#" className={styles.ingredient} onClick={(e)=>this.ingredientClicked(e)}>
+      <a href="#" className={styles.ingredientButton} onClick={(e)=>this.ingredientClicked(e)}>
         <span className={styles[ingredient]}></span>
       </a>
     );
