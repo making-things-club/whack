@@ -1,3 +1,4 @@
+import BlackBox from '../../ui/blackbox/BlackBox';
 import Countdown from '../../ui/countdown/Countdown';
 import Ingredient from '../../ui/ingredient/Ingredient';
 import styles from './round.mss';
@@ -32,13 +33,11 @@ export default class Round extends React.Component {
   }
 
   render() {
-
-    const amItheMole = this.props.player._id === this.props.room.pickedMoleId ? 'YES' : 'NO';
-    console.log('Round this.props.player._id = ', this.props.player._id);
-    console.log('Round this.props.room.pickedMoleId = ', this.props.room.pickedMoleId);
     return(
       <div>
-        <Countdown />
+        <BlackBox>
+          <Countdown />
+        </BlackBox>
         {this.renderIngredient()}
       </div>
     )

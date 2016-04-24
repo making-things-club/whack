@@ -1,11 +1,3 @@
-.countdownContainer {
-    width: 80%;
-    height: 100px;
-    background: #333;
-    border: 10px solid #fff;
-    position: relative;
-}
-
 .countdownBar {
     position: absolute;
     left: 0;

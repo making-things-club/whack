@@ -4,4 +4,5 @@
   background: $black;
   padding: 10px;
   margin-bottom: 20px;
+  position: relative;
 }
