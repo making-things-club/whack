@@ -8,11 +8,12 @@
   position: absolute;
   top: 0;
   left: 50%;
-  margin-left: -123px;
+  margin-left: -110px;
 }
 
 .logo {
   position: absolute;
   top: 20px;
   left: 0;
+  max-width: 100%;
 }
