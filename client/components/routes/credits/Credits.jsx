@@ -9,17 +9,17 @@ export default class Credits extends React.Component {
   goToJoin() {
     this.props.createRoom()
   }
-  
+
   render() {
 
     const contributors = {
-      'Ian Been': 'http://yahoo.com',
-      'James Booth': 'http://yahoo.com',
-      'James Cooke': 'http://yahoo.com',
-      'Judit Greskovits': 'http://yahoo.com',
-      'Luke Davies': 'http://yahoo.com',
-      'Pete Goodman': 'http://petegoodman.com',
-      'Caz Lock': 'http://yahoo.com',
+      'Iain Bean': 'http://iainbean.com',
+      'James Booth': 'http://jamesbooth.net/',
+      'James Cooke': 'http://jamescooke.info/',
+      'Judit Greskovits': 'http://www.juditgreskovits.com/',
+      'Luke Davies': 'http://www.lukehmu.com',
+      'Pete Goodman': 'https://petegoodman.com',
+      'Caz Lock': 'http://cazlock.com',
       'Remi Shergold': 'http://remi-shergold.com',
     }
 
