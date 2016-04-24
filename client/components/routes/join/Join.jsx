@@ -14,11 +14,11 @@ export default class Join extends React.Component {
   render() {
     return(
       <div className={styles.container}>
-        <Title value="Player name" />
+        <Title value="Add your name" />
         <GameLocation roomId={this.props.roomId} />
         <form onSubmit={(e)=>this.onJoinRoom(e)}>
           <TextInput ref="playerName" label="Your name" />
-          <Button onClick={(e)=>this.onJoinRoom(e)}>Join game</Button>
+          <Button onClick={(e)=>this.onJoinRoom(e)}>Next</Button>
         </form>
       </div>
     )

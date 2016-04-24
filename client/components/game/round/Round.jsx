@@ -1,3 +1,4 @@
+import Countdown from '../../ui/countdown/Countdown';
 import styles from './round.mss';
 
 export default class Round extends React.Component {
@@ -31,7 +32,7 @@ export default class Round extends React.Component {
     console.log('Round this.props.room.pickedMoleId = ', this.props.room.pickedMoleId);
     return(
       <div>
-        <h1>{amItheMole}</h1>
+        <Countdown />
         {this.renderMole()}
       </div>
     )

@@ -14,13 +14,13 @@ export default class Ready extends React.Component {
   render() {
     return(
       <div className={styles.container}>
-        <Title value="Waiting room" />
+        <Title value="Preparing the ingredients" />
         <GameLocation roomId={this.props.roomId} />
         <Paragraph>
           Wait for all the players to join before you start the game!
         </Paragraph>
         <PlayersList players={this.props.players} />
-        <Button onClick={()=>this.goToGame()}>Start game</Button>
+        <Button onClick={()=>this.goToGame()}>Start the game</Button>
       </div>
     )
   }

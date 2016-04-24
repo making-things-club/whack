@@ -6,9 +6,9 @@
   padding: 0;
   margin: 0;
   margin-bottom: 14px;
-  font-size: 25px;
+  font-size: 32px;
+  font-style: italic;
   color: white;
-  text-transform: uppercase;
   text-shadow: 4px 4px 0px rgba(95,70,119,0.2);
 }
 

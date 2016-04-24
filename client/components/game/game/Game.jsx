@@ -2,7 +2,6 @@ import RoundReady from '../roundReady/RoundReady';
 import Round from '../round/Round';
 import RoundEnd from '../roundEnd/RoundEnd';
 import GameEnd from '../gameEnd/GameEnd';
-import Countdown from '../../ui/countdown/Countdown';
 
 const { browserHistory } = ReactRouter;
 
@@ -87,7 +86,6 @@ export default class Game extends React.Component {
     return (
       <div>
         {this.renderRoundPlayer(props)}
-        <Countdown />
         <div>
           {this.renderChild(props)}
         </div>

@@ -1,7 +1,6 @@
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import Ready from '../ready/Ready';
 import Game from '../../game/game/Game';
-import styles from './room.mss';
 
 const { browserHistory } = ReactRouter;
 
@@ -81,9 +80,7 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
           <p>Picked player's id : {this.room() ? this.room().pickedPlayerId : 'meow'}</p>
           <p>Picked mole's id : {this.room() ? this.room().pickedMoleId : 'meow'}</p>
         </div>
-        <div className={styles.game}>
-          {this.renderChild()}
-        </div>
+        {this.renderChild()}
       </div>
     )
   }

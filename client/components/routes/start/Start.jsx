@@ -13,7 +13,7 @@ export default class Start extends React.Component {
     return (
         <div className={styles.container}>
           <Title value="Welcome to" />
-          <h1 className={styles.heroTitle}>Holey<br/>Moley</h1>
+          <h1 className={styles.heroTitle}>Guac-a-mole</h1>
           <Paragraph>
             For 2 or more players.
           </Paragraph>
@@ -22,6 +22,9 @@ export default class Start extends React.Component {
           </Paragraph>
           <Paragraph>
             Then tap as many moles as you can in 30 seconds.
+          </Paragraph>
+          <Paragraph>
+            [credits]
           </Paragraph>
           <Button onClick={()=>this.goToJoin()}>Create a game</Button>
         </div>
