@@ -1,5 +1,5 @@
-.paragraph {  
-  margin: 0 20px 1em 20px;
+.paragraph {
+  margin: 0 0 1em 0;
   text-align: center;
   font-size: 18px;
   font-weight: 300;

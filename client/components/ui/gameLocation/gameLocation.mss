@@ -11,9 +11,10 @@
 .url {
   display: block;
   margin-bottom: 15px;
-  font-size: 21px;
+  font-size: 18px;
   text-decoration: underline;
   word-wrap: break-word;
+  font-family: $font-sans;
 }
 
 .instructions {
@@ -22,6 +23,7 @@
   margin-bottom: 15px;
   font-size: 14px;
   color: $lightBrown;
+  font-family: $font-serif;
   text-transform: uppercase;
   text-align: center;
 }

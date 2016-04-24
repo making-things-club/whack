@@ -7,10 +7,9 @@
   color: white;
   border: 6px solid;
   border-radius: 66px;
-  line-height: 66px;
   font-family: $font-sans;
-  font-weight: bold;
   font-size: 25px;
+  padding: 10px 0;
   outline: none;
   cursor: pointer;
   transition: background 200ms;

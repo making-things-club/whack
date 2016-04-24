@@ -4,18 +4,21 @@
   font-size: 25px;
   color: white;
   margin-bottom: 11px;
+  font-style: italic;
+  font-weight: bold;
 }
 
 .input {
   width: 100%;
   height: 50px;
-  border: 1px dotted transparent;
+  padding: 0;
+  border: none;
   font-size: 25px;
   text-align: center;
-  box-shadow: 4px 5px 0px 0px rgba(181,163,199,0.2);
   outline: none;
+  font-family: $font-sans;
 }
 
 .input:focus {
-  box-shadow: 4px 5px 0px 0px rgba(181,163,199,0.5);
+  outline: none;
 }

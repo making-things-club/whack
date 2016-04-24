@@ -8,10 +8,10 @@ export default class textInput extends React.Component {
 
   render() {
     return (
-      <label>
-        <span className={styles.label}>{this.props.label}</span>
-        <input ref={(ref) => this.textInput = ref} type="text" required className={styles.input} />
-      </label>
+      <div>
+        <label htmlFor="yourName" className={styles.label}>{this.props.label}</label>
+        <input id="yourName" ref={(ref) => this.textInput = ref} type="text" required className={styles.input} />
+      </div>
     )
   }
 }
