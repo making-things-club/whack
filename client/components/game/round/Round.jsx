@@ -14,9 +14,10 @@ export default class Round extends React.Component {
 
   onIngredientClick() {
     console.log('Mole clicked!');
+    this.props.sampler.triggerAttack('samples.onion');
     Meteor.call('whackMole', this.props.room._id, this.props.room.pickedMoleId, (error, result) => {
         console.log(error, result);
-		});
+    });
   }
 
   render() {

@@ -3,6 +3,8 @@ import getChildrenWidthProps from '../../../utils/utils';
 import Ready from '../ready/Ready';
 import Game from '../../game/game/Game';
 
+import Tone, {Sampler} from 'tone';
+
 const { browserHistory } = ReactRouter;
 
 export default class Room extends TrackerReact(React.Component, {profiling : false}) {
@@ -14,7 +16,8 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
       subscription: {
         room: Meteor.subscribe('room', this.props.roomId),
         players: Meteor.subscribe('players', this.props.roomId)
-      }
+      },
+      sampler: this.createSampler()
     }
   }
 
@@ -28,6 +31,16 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
 
   players() {
     return Players.find({ roomId : this.props.roomId }, {sort: {score: -1}}).fetch();
+  }
+
+  createSampler() {
+    let sampler = new Sampler({
+      samples : {
+        onion : '../../audio/onion-chop.wav'
+      }
+    }).toMaster();
+
+    return sampler;
   }
 
   onJoinRoom(playerName) {
@@ -58,9 +71,10 @@ export default class Room extends TrackerReact(React.Component, {profiling : fal
       players: this.players(),
       room: this.room(),
       joinRoom: this.onJoinRoom.bind(this),
-      startRound: this.onStartRound.bind(this)
+      startRound: this.onStartRound.bind(this),
+      sampler: this.state.sampler
     };
-    if(roomState) {
+    if (roomState) {
       return <Game {...childProps} />
     }
     else {
