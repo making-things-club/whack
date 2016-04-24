@@ -23,6 +23,7 @@
   margin-bottom: 46px;
   font-size: 25px;
   text-decoration: underline;
+  word-wrap: break-word;
 }
 
 .instructions {
