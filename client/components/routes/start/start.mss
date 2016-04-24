@@ -12,3 +12,12 @@
   color: white;
   margin-bottom: 30px;
 }
+
+.link {
+  text-align: center;
+  color: white;
+  display: block;
+  font-family: $font-sans;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+}

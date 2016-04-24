@@ -24,9 +24,7 @@ export default class Start extends React.Component {
           <Paragraph>
             Then tap as many moles as you can in 30 seconds.
           </Paragraph>
-          <Paragraph>
-            [credits]
-          </Paragraph>
+          <a className={styles.link} href="/credits">Credits</a>
           <Button onClick={()=>this.goToJoin()}>Create a game</Button>
         </div>
     );
