@@ -20,4 +20,5 @@
   font-family: $font-sans;
   font-size: 1.125rem;
   text-transform: uppercase;
+  margin-bottom: 80px;
 }
