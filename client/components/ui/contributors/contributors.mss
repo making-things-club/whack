@@ -20,6 +20,7 @@
   margin: 0;
   position: relative;
   top: -1.5rem;
+  font-size: 1rem;
 }
 
 .link {
