@@ -7,7 +7,7 @@
 }
 
 .ingredient {
-    animation: showIngredient 100ms ease-in;
+    /*animation: showIngredient 100ms ease-in;*/
     background-repeat: no-repeat;
     background-size: contain;
     background-position: 50% 50%;
@@ -17,7 +17,7 @@
 
 .ingredientHit {
     composes: ingredient;
-    animation: hideIngredient 100ms ease-in;
+    /*animation: hideIngredient 100ms ease-in;*/
 }
 
 .avocado {

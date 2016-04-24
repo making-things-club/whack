@@ -21,12 +21,14 @@ export default class Ingredient extends React.Component {
 
   ingredientClicked (e) {
     e.preventDefault();
-    this.setState({isHit: true});
 
-    setTimeout(() => {
-      this.setState(this.setInitialIngredientState());
-      this.props.ingredientClick()
-    }, 500);
+    if (!this.state.isHit) {
+      //setTimeout(() => {
+        this.setState(this.setInitialIngredientState());
+        this.props.ingredientClick();
+      //}, 500);
+      this.setState({isHit: true});
+    }
   }
 
   setInitialIngredientState () {
