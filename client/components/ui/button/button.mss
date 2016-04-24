@@ -10,6 +10,7 @@
   line-height: 66px;
   font-size: 25px;
   outline: none;
+  cursor: pointer;
 }
 
 .button: active {
