@@ -1,4 +1,3 @@
-import BlackBox from '../blackbox/BlackBox';
 import styles from './gameLocation.mss';
 
 export default class GameLocation extends React.Component {
@@ -27,7 +26,6 @@ export default class GameLocation extends React.Component {
                           ? 'Copied to clipboard'
                           : 'Tap to copy to clipboard.'
     return(
-      <BlackBox>
         <button ref="button" className={styles.container} onClick={()=>this.setState({linkCopied:true })} data-clipboard-text={`http://${URL}`}>
           <span className={styles.title}>
             Share this link so others can join your game
@@ -39,7 +37,6 @@ export default class GameLocation extends React.Component {
             {instruction}
           </span>
         </button>
-      </BlackBox>
     )
   }
 }

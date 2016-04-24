@@ -12,14 +12,12 @@
 
 .title {
   display: inline-block;
-  width: 100%;
   margin-bottom: 14px;
   font-size: 18px;
 }
 
 .url {
   display: inline-block;
-  width: 100%;
   margin-bottom: 46px;
   font-size: 25px;
   text-decoration: underline;

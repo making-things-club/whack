@@ -1,12 +1,13 @@
 .button {
-  position: relative;
-  bottom: 0;
-  line-height: 66px;
-  width: 100%;
+  position: fixed;
+  bottom: 15px;
+  left: 5%;
+  width: 90%;
   background-color: $black;
+  color: white;
   border: 6px solid;
   border-radius: 66px;
-  color: white;
+  line-height: 66px;
   font-size: 25px;
   outline: none;
 }
