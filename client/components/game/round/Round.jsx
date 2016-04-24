@@ -1,24 +1,18 @@
 import Countdown from '../../ui/countdown/Countdown';
+import Ingredient from '../../ui/ingredient/Ingredient';
 import styles from './round.mss';
 
 export default class Round extends React.Component {
 
-  renderMole() {
+  renderIngredient() {
     if(this.props.player._id === this.props.room.pickedMoleId) {
-      console.log('show the mole!');
-      return (
-        <div className={styles.mole} onClick={(e)=>this.onMoleClick(e)}>
-          M O L E !
-        </div>
-      )
-    }
-    else {
+      return <Ingredient ingredientClick={this.onIngredientClick.bind(this)} />;
+    } else {
       return '';
     }
   }
 
-  onMoleClick(e) {
-    e.preventDefault();
+  onIngredientClick() {
     console.log('Mole clicked!');
     Meteor.call('whackMole', this.props.room._id, this.props.room.pickedMoleId, (error, result) => {
         console.log(error, result);
@@ -33,7 +27,7 @@ export default class Round extends React.Component {
     return(
       <div>
         <Countdown />
-        {this.renderMole()}
+        {this.renderIngredient()}
       </div>
     )
   }
