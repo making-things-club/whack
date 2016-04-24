@@ -1,3 +1,4 @@
 test:
   post:
+    - curl https://install.meteor.com/ | sh
     - meteor build
