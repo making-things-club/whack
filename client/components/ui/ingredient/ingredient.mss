@@ -1,73 +1,83 @@
-.ingredient {
+.ingredientButton {
     display: block;
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 100px;
+    bottom: 20px;
+}
+
+.ingredient {
+    animation: showIngredient 100ms ease-in;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50% 50%;
+    margin: 0 auto;
+    display: block;
+}
+
+.ingredientHit {
+    composes: ingredient;
+    animation: hideIngredient 100ms ease-in;
 }
 
 .avocado {
-    display: block;
-    background: url(images/ingredient-avocado.svg);
-    background-repeat: no-repeat;
+    composes: ingredient;
+    background-image: url(images/ingredient-avocado.svg);
     width: 300px;
     height: 300px;
 }
 
 .lime {
-    display: block;
-    background: url(images/ingredient-lime.svg);
-    background-repeat: no-repeat;
+    composes: ingredient;
+    background-image: url(images/ingredient-lime.svg);
     width: 300px;
     height: 300px;
 }
 
 .garlic {
-    display: block;
-    background: url(images/ingredient-garlic.svg);
-    background-repeat: no-repeat;
+    composes: ingredient;
+    background-image: url(images/ingredient-garlic.svg);
     width: 300px;
     height: 300px;
 }
 
 .avocadoHit {
-    animation: hitState 500ms linear;
-    display: block;
-    background: url(images/ingredient-avocado-hit.svg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    composes: ingredientHit;
+    background-image: url(images/ingredient-avocado-hit.svg);
     width: 300px;
     height: 300px;
 }
 
 .limeHit {
-    animation: hitState 500ms linear;
-    display: block;
-    background: url(images/ingredient-lime-hit.svg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    composes: ingredientHit;
+    background-image: url(images/ingredient-lime-hit.svg);
     width: 300px;
     height: 300px;
 }
 
 .garlicHit {
-    animation: hitState 500ms linear;
-    display: block;
-    background: url(images/ingredient-garlic-hit.svg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    composes: ingredientHit;
+    background-image: url(images/ingredient-garlic-hit.svg);
     width: 300px;
     height: 300px;
 }
 
-@keyframes hitState {
+@keyframes showIngredient {
   0% {
-
+    transform: scale(0);
   }
 
   100% {
-    width: 50%;
-    height: 50%;
-    left: 100%;
+    transform: scale(1);
+  }
+}
+
+@keyframes hideIngredient {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
   }
 }

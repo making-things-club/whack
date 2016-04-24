@@ -12,7 +12,6 @@ export default class Game extends React.Component {
   }
 
   getProps() {
-    console.log(' *** this.props = ', JSON.stringify(this.props));
     if(this.props.params && this.props.params.roomState) {
       const fakeProps = JSON.parse( '{"roomId":"e7ehuii2qnt5weQgb","player":{"_id":"4dyPCM959abH3j7Y9","name":"Judit","roomId":"e7ehuii2qnt5weQgb","played":false,"score":0,"joined":true,"random":0.5091277295723557},"players":[{"_id":"4dyPCM959abH3j7Y9","name":"Judit","roomId":"e7ehuii2qnt5weQgb","played":false,"score":0,"joined":true,"random":0.5091277295723557},{"_id":"zA8ieZDdmnnnRi4un","name":"Pete","roomId":"e7ehuii2qnt5weQgb","played":false,"score":0,"joined":true,"random":0.44454288529232144},{"_id":"AvoYQ29Ev6mS2JCmf","name":"James","roomId":"e7ehuii2qnt5weQgb","played":true,"score":0,"joined":true,"random":0.2457792074419558}],"room":{"_id":"e7ehuii2qnt5weQgb","rounds":0,"state":"' + this.props.params.roomState + '","roundStartTime":1461431035379,"roundDuration":15000,"pickedPlayerId":"AvoYQ29Ev6mS2JCmf","pickedMoleId":""}}');
       return fakeProps;
