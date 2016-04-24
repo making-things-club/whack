@@ -49,7 +49,7 @@ export default class App extends TrackerReact(React.Component, {profiling : fals
   getChildren() {
 
     // COMMENT OUT LINE BELOW IN FINAL
-    //return this.getChildrenWidthProps();
+    return this.getChildrenWidthProps();
 
     if(this.state.roomId) {
       return this.getChildrenWidthProps();
