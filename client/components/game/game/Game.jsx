@@ -42,52 +42,8 @@ export default class Game extends React.Component {
     }
   }
 
-  getRoundPlayer(props) {
-    const players = props.players;
-    const roundPlayerId = props.room.pickedPlayerId;
-    let roundPlayer = null;
-    players.forEach(player => {
-      if(player._id === roundPlayerId) {
-        roundPlayer = player;
-      }
-    });
-
-    return roundPlayer;
-  }
-
-  renderRoundPlayer(props) {
-    const roundPlayer = this.getRoundPlayer(props);
-    if(roundPlayer) {
-      return (
-        <div>
-          <h1>{roundPlayer.name + '\'s'}</h1>
-          <h2>score</h2>
-          <h1>{roundPlayer.score}</h1>
-        </div>
-      );
-    }
-  }
-
-  renderPlayer(props) {
-    const player = props.player;
-    if(player.played) {
-      return (
-        <p>{player.name + '\'s score' + player.score}</p>
-      );
-    }
-  }
-
   render() {
-
     const props = this.getProps();
-    return (
-      <div>
-        {this.renderRoundPlayer(props)}
-        <div>
-          {this.renderChild(props)}
-        </div>
-        {this.renderPlayer(props)}
-      </div>
-    )
+    return <div>{this.renderChild(props)}</div>;
   }
 }
