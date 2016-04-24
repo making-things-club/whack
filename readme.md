@@ -45,3 +45,14 @@ needed for running the server). On the vm do:
 ```sh
 /vagrant/reload_vm.sh
 ```
+
+## Deployment
+
+We're experimenting with [mup](https://github.com/arunoda/meteor-up/tree/mupx)
+for deployment. On the vagrant box:
+
+```sh
+cd whack
+mupx setup
+mupx deploy
+```
