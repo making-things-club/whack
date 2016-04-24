@@ -8,6 +8,8 @@
   border: 6px solid;
   border-radius: 66px;
   line-height: 66px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
   font-size: 25px;
   outline: none;
   cursor: pointer;
