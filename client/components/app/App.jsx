@@ -38,7 +38,8 @@ export default class App extends TrackerReact(React.Component, {profiling : fals
 
     const childrenWithProps = React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, {
-        roomId: this.state.roomId
+        roomId: this.state.roomId,
+        createRoom: this.onCreateRoom.bind(this)
       });
     });
     return childrenWithProps;
