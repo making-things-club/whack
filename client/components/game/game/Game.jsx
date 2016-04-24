@@ -1,7 +1,10 @@
+import BlackBox from '../../ui/blackbox/BlackBox';
+import Countdown from '../../ui/countdown/Countdown';
 import RoundReady from '../roundReady/RoundReady';
 import Round from '../round/Round';
 import RoundEnd from '../roundEnd/RoundEnd';
 import GameEnd from '../gameEnd/GameEnd';
+import styles from './game.mss';
 
 const { browserHistory } = ReactRouter;
 
@@ -30,15 +33,39 @@ export default class Game extends React.Component {
     let roomState = this.getRoomState();
     switch(roomState) {
       case 'playerPicked':
-        return <RoundReady {...props}/>;
+        return <RoundReady renderRoundPlayer={this.renderRoundPlayer} {...props}/>;
       case 'molePicked':
-        return <Round {...props} />;
+        return <Round renderRoundPlayer={this.renderRoundPlayer} {...props} />;
       case 'roundEnded':
-        return <RoundEnd {...props} />;
+        return <RoundEnd renderRoundPlayer={this.renderRoundPlayer} {...props} />;
       case 'gameEnded':
         return <GameEnd {...props} />;
       default:
         return '';
+    }
+  }
+
+  renderRoundPlayer(props) {
+    const players = props.players;
+    const roundPlayerId = props.room.pickedPlayerId;
+    let roundPlayer = null;
+    players.forEach(player => {
+      if(player._id === roundPlayerId) {
+        roundPlayer = player;
+      }
+    });
+
+    if(roundPlayer) {
+      return (
+        <BlackBox>
+          <div className={styles.roundPlayer}>
+            <p className={styles.roundPlayerTitle}>{roundPlayer.name + '\'s'}</p>
+            <p className={styles.roundPlayerSubtitle}>score</p>
+            <p className={styles.roundPlayerScore}>{roundPlayer.score}</p>
+          </div>
+          <Countdown />
+        </BlackBox>
+      );
     }
   }
 

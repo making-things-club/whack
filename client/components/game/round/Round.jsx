@@ -1,5 +1,4 @@
 import BlackBox from '../../ui/blackbox/BlackBox';
-import Countdown from '../../ui/countdown/Countdown';
 import Ingredient from '../../ui/ingredient/Ingredient';
 import styles from './round.mss';
 
@@ -45,40 +44,10 @@ export default class Round extends React.Component {
     }
   }
 
-  renderRoundPlayer(props) {
-    const roundPlayer = this.getRoundPlayer(props);
-    if(roundPlayer) {
-      return (
-        <BlackBox>
-          <div className={styles.roundPlayer}>
-            <p className={styles.roundPlayerTitle}>{roundPlayer.name + '\'s'}</p>
-            <p className={styles.roundPlayerSubtitle}>score</p>
-            <p className={styles.roundPlayerScore}>{roundPlayer.score}</p>
-          </div>
-          <Countdown />
-        </BlackBox>
-      );
-    }
-  }
-
-  getRoundPlayer(props) {
-    const players = props.players;
-    const roundPlayerId = props.room.pickedPlayerId;
-    let roundPlayer = null;
-    players.forEach(player => {
-      if(player._id === roundPlayerId) {
-        roundPlayer = player;
-      }
-    });
-
-    return roundPlayer;
-  }
-
-
   render() {
     return(
       <div>
-        {this.renderRoundPlayer(this.props)}
+        {this.props.renderRoundPlayer(this.props)}
         {this.renderIngredient()}
         {this.renderPlayerScore(this.props)}
       </div>

@@ -29,9 +29,8 @@ export default class RoundEnd extends React.Component {
   render() {
     return(
       <div>
-        <BlackBox>
-          <p>Round End!</p>
-        </BlackBox>
+        {this.props.renderRoundPlayer(this.props)}
+        <p>Round over!</p>
         {this.renderButton()}
       </div>
     )

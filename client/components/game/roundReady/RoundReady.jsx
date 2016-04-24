@@ -6,9 +6,8 @@ export default class RoundReady extends React.Component {
   render() {
     return(
       <div>
-        <BlackBox>
-          <p>Round Ready!</p>
-        </BlackBox>
+        {this.props.renderRoundPlayer(this.props)}
+        <p>Get ready!</p>
       </div>
     )
   }
