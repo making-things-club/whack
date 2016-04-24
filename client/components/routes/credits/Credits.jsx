@@ -18,9 +18,9 @@ export default class Credits extends React.Component {
       'James Cooke': 'http://yahoo.com',
       'Judit Greskovits': 'http://yahoo.com',
       'Luke Davies': 'http://yahoo.com',
-      'Pete Goodman': 'http://yahoo.com',
+      'Pete Goodman': 'http://petegoodman.com',
       'Caz Lock': 'http://yahoo.com',
-      'Remi Shergold': 'http://yahoo.com',
+      'Remi Shergold': 'http://remi-shergold.com',
     }
 
     return(
