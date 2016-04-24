@@ -1,7 +1,10 @@
+import BlackBox from '../../ui/blackbox/BlackBox';
+import Countdown from '../../ui/countdown/Countdown';
 import RoundReady from '../roundReady/RoundReady';
 import Round from '../round/Round';
 import RoundEnd from '../roundEnd/RoundEnd';
 import GameEnd from '../gameEnd/GameEnd';
+import styles from './game.mss';
 
 const { browserHistory } = ReactRouter;
 
@@ -30,11 +33,11 @@ export default class Game extends React.Component {
     let roomState = this.getRoomState();
     switch(roomState) {
       case 'playerPicked':
-        return <RoundReady {...props}/>;
+        return <RoundReady renderRoundPlayer={this.renderRoundPlayer} {...props}/>;
       case 'molePicked':
-        return <Round {...props} />;
+        return <Round renderRoundPlayer={this.renderRoundPlayer} {...props} />;
       case 'roundEnded':
-        return <RoundEnd {...props} />;
+        return <RoundEnd renderRoundPlayer={this.renderRoundPlayer} {...props} />;
       case 'gameEnded':
         return <GameEnd {...props} />;
       default:
@@ -42,7 +45,7 @@ export default class Game extends React.Component {
     }
   }
 
-  getRoundPlayer(props) {
+  renderRoundPlayer(props) {
     const players = props.players;
     const roundPlayerId = props.room.pickedPlayerId;
     let roundPlayer = null;
@@ -52,42 +55,22 @@ export default class Game extends React.Component {
       }
     });
 
-    return roundPlayer;
-  }
-
-  renderRoundPlayer(props) {
-    const roundPlayer = this.getRoundPlayer(props);
     if(roundPlayer) {
       return (
-        <div>
-          <h1>{roundPlayer.name + '\'s'}</h1>
-          <h2>score</h2>
-          <h1>{roundPlayer.score}</h1>
-        </div>
-      );
-    }
-  }
-
-  renderPlayer(props) {
-    const player = props.player;
-    if(player.played) {
-      return (
-        <p>{player.name + '\'s score' + player.score}</p>
+        <BlackBox>
+          <div className={styles.roundPlayer}>
+            <p className={styles.roundPlayerTitle}>{roundPlayer.name + '\'s'}</p>
+            <p className={styles.roundPlayerSubtitle}>score</p>
+            <p className={styles.roundPlayerScore}>{roundPlayer.score}</p>
+          </div>
+          <Countdown />
+        </BlackBox>
       );
     }
   }
 
   render() {
-
     const props = this.getProps();
-    return (
-      <div>
-        {this.renderRoundPlayer(props)}
-        <div>
-          {this.renderChild(props)}
-        </div>
-        {this.renderPlayer(props)}
-      </div>
-    )
+    return <div>{this.renderChild(props)}</div>;
   }
 }
