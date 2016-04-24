@@ -15,8 +15,12 @@ Vagrant.configure(2) do |config|
   # Had to run as sudo to get some ports listening :(
 
   config.vm.provision "shell", inline: <<-SHELL
+    wget https://deb.nodesource.com/setup -O /tmp/node.sh
+    chmod +x /tmp/node.sh
+    /tmp/node.sh
     apt-get update
-    apt-get install -y git tree htop
+    apt-get install -y nodejs htop git
+    sudo npm install -g mupx
     curl https://install.meteor.com/ | sh
   SHELL
 end
