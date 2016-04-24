@@ -2,6 +2,7 @@
   position: relative;
   margin: 0 auto 0 auto;
   height: 238px;
+  text-align: center;
 }
 
 .bowl {
@@ -12,8 +13,7 @@
 }
 
 .logo {
-  position: absolute;
+  position: relative;
   top: 20px;
-  left: 0;
   max-width: 100%;
 }
