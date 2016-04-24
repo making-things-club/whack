@@ -1,0 +1,22 @@
+{
+  "servers": [
+    {
+      "host": "guacamole.jamescooke.info",
+      "username": "whack",
+      "sshOptions": { "port" : 22222 },
+      "env": {}
+    }
+  ],
+
+  "setupMongo": true,
+  "appName": "whack",
+  "app": ".",
+
+  "env": {
+    "PORT": 80,
+    "ROOT_URL": "http://guacamole.jamescooke.info"
+  },
+
+  "deployCheckWaitTime": 15,
+  "enableUploadProgressBar": true
+}
