@@ -32,7 +32,7 @@ export default class App extends TrackerReact(React.Component, {profiling : fals
         console.log('onCreateRoom ', error, result);
         this.setState({ roomId: result });
         browserHistory.push('/room/join/' + this.state.roomId);
-		});
+    });
   }
 
   // If we have a room id either threough room creation or from url, display room, otherwise show start
