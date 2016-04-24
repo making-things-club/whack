@@ -1,7 +1,8 @@
-import styles from './start.mss'
-import Title from '../../ui/title/title.jsx'
-import Button from '../../ui/button/button.jsx'
-import Paragraph from '../../ui/paragraph/paragraph.jsx'
+import styles from './start.mss';
+import Title from '../../ui/title/title.jsx';
+import Bowl from '../../ui/bowl/Bowl.jsx';
+import Button from '../../ui/button/button.jsx';
+import Paragraph from '../../ui/paragraph/paragraph.jsx';
 
 export default class Start extends React.Component {
 
@@ -13,7 +14,7 @@ export default class Start extends React.Component {
     return (
         <div className={styles.container}>
           <Title value="Welcome to" />
-          <h1 className={styles.heroTitle}>Guac-a-mole</h1>
+          <Bowl />
           <Paragraph>
             For 2 or more players.
           </Paragraph>
