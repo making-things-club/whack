@@ -1,5 +1,6 @@
-import BlackBox from '../../ui/blackbox/BlackBox';
-import Button from '../../ui/button/button.jsx'
+import Title from '../../../ui/title/title.jsx';
+import BlackBox from '../../../ui/blackbox/BlackBox';
+import Button from '../../../ui/button/button.jsx'
 import styles from './roundEnd.mss';
 
 export default class RoundEnd extends React.Component {
@@ -30,8 +31,10 @@ export default class RoundEnd extends React.Component {
     return(
       <div>
         {this.props.renderRoundPlayer(this.props)}
-        <p>Round over!</p>
-        {this.renderButton()}
+        <Title value="Round over" />
+        <div className={styles.buttons}>
+          {this.renderButton()}
+        </div>
       </div>
     )
   }

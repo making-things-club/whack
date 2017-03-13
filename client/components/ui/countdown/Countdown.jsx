@@ -4,7 +4,10 @@ export default class Countdown extends React.Component {
 
   render() {
     return(
-      <div className={styles.countdownBar}></div>
+      <div
+        className={styles.countdownBar}
+        style={{width: `${this.props.progress}%`}}
+      />
     )
   }
 }

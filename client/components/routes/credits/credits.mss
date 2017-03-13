@@ -1,12 +1,19 @@
 .container {
   position: relative;
   height: 100%;
-  padding-top: 25px;
   box-sizing: border-box;
+  margin-bottom: 80px;
+
+  @media (max-height: 550px) {
+    margin-bottom: 0;
+    padding-top: 25px;
+  }
 }
 
-@media (max-height: 640px) {
-  .container {
-    margin-bottom: 80px;
-  }
+.buttons {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
 }

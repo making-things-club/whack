@@ -4,29 +4,15 @@ export default class Ingredient extends React.Component {
 
   constructor() {
     super();
-    this.preloadImages();
     this.state = this.setInitialIngredientState();
-  }
-
-  preloadImages () {
-    const ingredients = ['avocado', 'garlic', 'lime'];
-    ingredients.forEach((ingredient) => {
-      var img = new Image();
-      var imgHit = new Image();
-      img.src = `/images/ingredient-${ingredient}.svg`;
-      imgHit.src = `/images/ingredient-${ingredient}-hit.svg`;
-      img.onload = (e) => { console.log(e, this, 'loaded'); };
-    });
   }
 
   ingredientClicked (e) {
     e.preventDefault();
+    e.target.blur();
 
     if (!this.state.isHit) {
-      //setTimeout(() => {
-        this.setState(this.setInitialIngredientState());
-        this.props.ingredientClick();
-      //}, 500);
+      this.props.ingredientClick();
       this.setState({isHit: true});
     }
   }
@@ -35,9 +21,9 @@ export default class Ingredient extends React.Component {
     let rand = Math.floor(Math.random() * 10) + 1;
     let ingredient = null;
 
-    if (rand < 7) {
+    if (rand < 5) {
       ingredient = 'avocado';
-    } else if (rand < 9) {
+    } else if (rand < 7) {
       ingredient = 'garlic';
     } else {
       ingredient = 'lime';

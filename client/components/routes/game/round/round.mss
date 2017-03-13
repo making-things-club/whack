@@ -1,8 +1,8 @@
 .phonePlayer {
     position: fixed;
-    bottom: 15px;
-    left: 5%;
-    width: 90%;
+    bottom: -15px;
+    right: 5px;
+    opacity: 0.5;
 }
 
 .phonePlayerScore {

@@ -1,16 +1,12 @@
 .container {
   position: relative;
   height: 100%;
-  padding-top: 25px;
+  padding-top: 10px;
   box-sizing: border-box;
-}
 
-.heroTitle {
-  text-align: center;
-  font-size: 65px;
-  margin: 0;
-  color: white;
-  margin-bottom: 30px;
+  @media (min-height: 600px) {
+    padding-top: 30px;
+  }
 }
 
 .link {
@@ -20,5 +16,12 @@
   font-family: $font-sans;
   font-size: 1.125rem;
   text-transform: uppercase;
-  margin-bottom: 80px;
+}
+
+.buttons {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
 }

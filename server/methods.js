@@ -1,7 +1,8 @@
-var playerPickedDelay = 1*1000;
-var moleDuration = 3*1000;
-var roundDuration = 30 * 1000;
+var playerPickedDelay = 2 * 1000;
+var moleDuration = 3 * 1000;
+var roundDuration = 30;
 
+var roundDurations = {};
 var timeouts = {};
 
 // check whether all joined players have pressed start
@@ -9,7 +10,6 @@ playersStarted = (roomId, playerId) => {
   Players.update({ _id : playerId}, { $set : { joined : true }});
   var players = Players.find({ roomId : roomId });
   var joinedPlayers = Players.find({ roomId : roomId, joined : true });
-  console.log('players = ' + players.count() + ' joinedPlayers = ' + joinedPlayers.count());
   return joinedPlayers.count() === players.count();
 }
 
@@ -36,14 +36,24 @@ startRound = (roomId) => {
   clearAllTimeouts(roomId);
   var pickedPlayerId = pickPlayer(roomId)._id;
   var now = Date.now();
-  Rooms.update({ _id : roomId}, { $set : { pickedPlayerId : pickedPlayerId, state : 'playerPicked', roundStartTime : now, roundDuration : roundDuration}}); // On the front end compare this tostored playerId
+  Rooms.update({ _id : roomId}, { $set : { pickedPlayerId : pickedPlayerId, state : 'playerPicked', roundDurationRemaining: roundDuration}}); // On the front end compare this to stored playerId
   Players.update({ _id : pickedPlayerId}, { $set : { played : true }});
   timeouts[roomId].playerPickedTimeout = Meteor.setTimeout(function() {
-    startMole(roomId, '')
+    startMole(roomId, '');
+    roundDurations[roomId] = 30;
+    checkRoundEnd(roomId);
   }, playerPickedDelay);
-  timeouts[roomId].roundTimeout = Meteor.setTimeout(function() {
-    endRound(roomId)
-  }, playerPickedDelay + roundDuration);
+}
+
+checkRoundEnd = (roomId) => {
+  if (roundDurations[roomId]-- > 0) {
+    timeouts[roomId].roundTimeout = Meteor.setTimeout(function() {
+      Rooms.update({ _id : roomId}, { $set : { roundDurationRemaining: roundDurations[roomId]}});
+      checkRoundEnd(roomId);
+    }, 1000);
+  } else {
+    endRound(roomId);
+  }
 }
 
 startMole = (roomId, pickedMoleId) => {
@@ -54,7 +64,7 @@ startMole = (roomId, pickedMoleId) => {
 
 showMole = (roomId, pickedMoleId) => {
   var pickedMoleId = pickMole(roomId, pickedMoleId)._id;
-  Rooms.update({ _id : roomId}, { $set : { pickedMoleId : pickedMoleId, state : 'molePicked'}}); // On the front end compare this tostored playerId
+  Rooms.update({ _id : roomId}, { $set : { pickedMoleId : pickedMoleId, state : 'molePicked'}}); // On the front end compare this to stored playerId
   startMole(roomId, pickedMoleId);
 }
 
@@ -63,44 +73,76 @@ endRound = (roomId) => {
   var notPlayedPlayers = Players.find({ roomId : roomId, played : false });
   if(notPlayedPlayers.count() > 0) {
     Players.update({ roomId : roomId }, { $set : { joined : false }}, {multi : true });
-    Rooms.update({ _id : roomId }, {$set : {rounds : 0, state : 'roundEnded', roundStartTime : 0, roundDuration : 0}});
+    Rooms.update({ _id : roomId }, {$set : {rounds : 0, state : 'roundEnded'}});
   }
   else {
     delete timeouts[roomId];
-    Rooms.update({ _id : roomId }, {$set : {rounds : 0, state : 'gameEnded', roundStartTime : 0, roundDuration : 0}});
+    Rooms.update({ _id : roomId }, {$set : {rounds : 0, state : 'gameEnded', roundDurationRemaining: roundDuration}});
   }
 }
 
 clearAllTimeouts = (roomId) => {
   const roomTimeouts = timeouts[roomId];
   if(roomTimeouts) {
-    Meteor.clearTimeout(roomTimeouts.playerPickedTimeout);
-    Meteor.clearTimeout(roomTimeouts.moleTimeout);
-    Meteor.clearTimeout(roomTimeouts.roundTimeout);
+    if (roomTimeouts.playerPickedTimeout) { Meteor.clearTimeout(roomTimeouts.playerPickedTimeout); }
+    if (roomTimeouts.moleTimeout) { Meteor.clearTimeout(roomTimeouts.moleTimeout); }
+    if (roomTimeouts.roundTimeout) { Meteor.clearTimeout(roomTimeouts.roundTimeout); }
   }
+}
+
+generateCode = () => {
+  let text = '';
+  const possible = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+  for(let i=0; i < 4; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
 }
 
 Meteor.methods({
 
   createRoom: () => {
-    const roomId = Rooms.insert({ rounds : 0, state : '', roundStartTime : 0, roundDuration : 0, pickedPlayerId : '', pickedMoleId : ''});
-    console.log('createRoom roomId = ' + roomId);
+    const roomCode = generateCode();
+    const roomId = Rooms.insert({
+      rounds : 0,
+      state : '',
+      pickedPlayerId : '',
+      pickedMoleId : '',
+      roundDuration: roundDuration,
+      roomCode
+    });
     timeouts[roomId] = {};
-    return  roomId;
+    return {roomId, roomCode};
   },
 
-  joinRoom: (roomId, playerName) => {
+  findRoom: (roomCode) => {
+    var room = Rooms.findOne({ roomCode });
+    if (room) {
+      return room._id;
+    } else {
+      return false;
+    }
+  },
+
+  createPlayer: (roomId, playerName) => {
     var room = Rooms.findOne({ _id : roomId });
     if(room) {
       var random = Math.random();
-      return Players.insert({ name : playerName, roomId : roomId, played : false, score : 0, joined: false, random : random }); // return player._id
+      return Players.insert({
+        name : playerName,
+        roomId : room._id,
+        played : false,
+        score : 0,
+        joined: false,
+        random : random
+      });
     }
+    // TODO error message for room doesn't exist
   },
 
   startRoom: (roomId, playerId) => {
     var room = Rooms.findOne({ _id : roomId });
     if(room) {
-
       if(playersStarted(roomId, playerId)) {
         Rooms.update({ _id : roomId }, { $set : {state : 'playersStarted'}})
         startRound(roomId);
@@ -113,9 +155,11 @@ Meteor.methods({
     var room = Rooms.findOne({ _id : roomId});
     if(room.pickedMoleId === moleId && room.state === 'molePicked') {
       Meteor.clearTimeout(timeouts[roomId].moleTimeout);
-      var playerId = room.pickedPlayerId;
-      Players.update({ _id : playerId}, {$inc : { score : 1}});
-      showMole(roomId, room.pickedMoleId);
+      timeouts[roomId].moleHitTimeout = Meteor.setTimeout(() => {
+        var playerId = room.pickedPlayerId;
+        Players.update({ _id : playerId}, {$inc : { score : 1}});
+        showMole(roomId, room.pickedMoleId);
+      }, 250);
     }
   }
 });

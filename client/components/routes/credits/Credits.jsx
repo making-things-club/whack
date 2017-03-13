@@ -1,17 +1,16 @@
 import styles from './credits.mss'
 
-
+const { browserHistory } = ReactRouter;
 import Contributors from '../../ui/contributors/Contributors.jsx'
 import Button from '../../ui/button/button.jsx'
 
 export default class Credits extends React.Component {
 
-  goToJoin() {
-    this.props.createRoom()
+  goToHome() {
+    browserHistory.push('/');
   }
 
   render() {
-
     const contributors = {
       'Iain Bean': 'http://iainbean.com',
       'James Booth': 'http://jamesbooth.net/',
@@ -26,7 +25,9 @@ export default class Credits extends React.Component {
     return(
       <div className={styles.container}>
         <Contributors people={contributors} />
-        <Button onClick={()=>this.goToJoin()}>Create a new game</Button>
+        <div className={styles.buttons}>
+          <Button onClick={()=>this.goToHome()}>Back</Button>
+        </div>
       </div>
     )
   }
