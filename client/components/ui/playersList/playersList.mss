@@ -1,10 +1,14 @@
 .title {
-  margin-bottom: 9px;
+  margin: 0 0 20px 0;
   text-align: center;
-  font-size: 25px;
+  font-size: 18px;
   color: white;
   font-style: italic;
   font-weight: bold;
+
+  @media (min-height: 600px) {
+    font-size: 25px;
+  }
 }
 
 .playerList {

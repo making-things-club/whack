@@ -1,4 +1,4 @@
-export default function getChildrenWidthProps(children, childProps, optionalProps) {
+export default function getChildrenWithProps(children, childProps, optionalProps) {
 
   const combinedProps = optionalProps ? Object.assign({}, childProps, optionalProps) : childProps;
 

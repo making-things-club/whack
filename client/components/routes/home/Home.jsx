@@ -1,15 +1,19 @@
-import styles from './start.mss';
+import styles from './home.mss';
 import Title from '../../ui/title/title.jsx';
 import Bowl from '../../ui/bowl/Bowl.jsx';
 import Button from '../../ui/button/button.jsx';
 import Paragraph from '../../ui/paragraph/paragraph.jsx';
 
-const { Link } = ReactRouter;
+const { Link, browserHistory } = ReactRouter;
 
-export default class Start extends React.Component {
+export default class Home extends React.Component {
+
+  goToCreate() {
+    browserHistory.push('/room/create');
+  }
 
   goToJoin() {
-    this.props.createRoom()
+    browserHistory.push('/room/join');
   }
 
   render() {
@@ -19,15 +23,17 @@ export default class Start extends React.Component {
           <Bowl />
           <Paragraph>
             For 2 or more players.
-          </Paragraph>
-          <Paragraph>
-            Create or join a game. Place all your devices on a table. Wait for all the players to join.
+            Place all your devices on a table.
+            Wait for all players to join.
           </Paragraph>
           <Paragraph>
             Then tap as many moles as you can in 30 seconds.
           </Paragraph>
           <Link className={styles.link} to="/credits">Credits</Link>
-          <Button onClick={()=>this.goToJoin()}>Create a game</Button>
+          <div className={styles.buttons}>
+            <Button onClick={()=>this.goToCreate()}>Create</Button>
+            <Button onClick={()=>this.goToJoin()}>Join</Button>
+          </div>
         </div>
     );
   }

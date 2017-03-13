@@ -1,22 +1,10 @@
 .countdownBar {
     position: absolute;
+    z-index: 1;
     left: 0;
     top: 0;
     bottom: 0;
     width: 0;
-
-    /* animation, duration, ease, delay */
-    animation: countdownBar 30s linear 6s;
-}
-
-@keyframes countdownBar {
-  0% {
-    width: 0;
-    background: #f60;
-  }
-
-  100% {
-    width: 100%;
     background: #f90;
-  }
+    transition: width 1s linear;
 }

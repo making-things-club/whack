@@ -14,7 +14,7 @@ export default class Contributors extends React.Component {
           <p className={styles.subTitle} >
             Was created by...
           </p>
-          { _.map(this.props.people, (website, name)=> <a className={styles.link} href={website}>{name}</a>) }
+          { _.map(this.props.people, (website, name)=> <a className={styles.link} href={website} target="_blank">{name}</a>) }
         </div>
       </BlackBox>
     )
