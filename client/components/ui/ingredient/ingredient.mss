@@ -24,42 +24,42 @@
 
 .avocado {
     composes: ingredient;
-    background-image: url(images/ingredient-avocado.svg);
+    background-image: url(images/ingredient-avocado.png);
     width: 300px;
     height: 300px;
 }
 
 .lime {
     composes: ingredient;
-    background-image: url(images/ingredient-lime.svg);
+    background-image: url(images/ingredient-lime.png);
     width: 300px;
     height: 300px;
 }
 
 .garlic {
     composes: ingredient;
-    background-image: url(images/ingredient-garlic.svg);
+    background-image: url(images/ingredient-garlic.png);
     width: 300px;
     height: 300px;
 }
 
 .avocadoHit {
     composes: ingredientHit;
-    background-image: url(images/ingredient-avocado-hit.svg);
+    background-image: url(images/ingredient-avocado-hit.png);
     width: 300px;
     height: 300px;
 }
 
 .limeHit {
     composes: ingredientHit;
-    background-image: url(images/ingredient-lime-hit.svg);
+    background-image: url(images/ingredient-lime-hit.png);
     width: 300px;
     height: 300px;
 }
 
 .garlicHit {
     composes: ingredientHit;
-    background-image: url(images/ingredient-garlic-hit.svg);
+    background-image: url(images/ingredient-garlic-hit.png);
     width: 300px;
     height: 300px;
 }

@@ -31,8 +31,8 @@ export default class Round extends React.Component {
     ingredients.forEach((ingredient) => {
       var img = new Image();
       var imgHit = new Image();
-      img.src = `/images/ingredient-${ingredient}.svg`;
-      imgHit.src = `/images/ingredient-${ingredient}-hit.svg`;
+      img.src = `/images/ingredient-${ingredient}.png`;
+      imgHit.src = `/images/ingredient-${ingredient}-hit.png`;
       img.onload = (e) => { /*console.log(e, this, `${ingredient} loaded`);*/ };
       imgHit.onload = (e) => { /*console.log(e, this, `${ingredient} hit loaded`);*/ };
     });
