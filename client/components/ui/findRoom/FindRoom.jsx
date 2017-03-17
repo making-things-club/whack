@@ -1,3 +1,5 @@
+const { browserHistory } = ReactRouter;
+
 import styles from './findRoom.mss';
 import BlackBox from '../blackbox/BlackBox';
 import Title from '../title/title.jsx'
@@ -12,12 +14,17 @@ export default class FindRoom extends React.Component {
     this.props.findRoom(this.roomCode.value);
   }
 
+  goToHome(e) {
+    e.preventDefault();
+    browserHistory.push('/');
+  }
+
   render() {
     let button;
     if(this.roomCode && this.roomCode.length < 1) {
-      button = <Button disabled="true">Find game</Button>
+      button = <Button disabled="true">Find</Button>
     } else {
-      button = <Button onClick={(e)=>this.findRoom(e)}>Find game</Button>
+      button = <Button onClick={(e)=>this.findRoom(e)}>Find</Button>
     }
     return(
       <div className={styles.container}>
@@ -36,6 +43,7 @@ export default class FindRoom extends React.Component {
           </Paragraph>
           <div className={styles.buttons}>
             {button}
+            <Button onClick={(e)=>this.goToHome(e)}>Back</Button>
           </div>
         </form>
       </div>

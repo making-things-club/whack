@@ -1,3 +1,5 @@
+const { browserHistory } = ReactRouter;
+
 import styles from './createPlayer.mss';
 import BlackBox from '../blackbox/BlackBox';
 import Title from '../title/title.jsx'
@@ -13,6 +15,11 @@ export default class CreatePlayer extends React.Component {
     this.state = {
       name: presetName
     };
+  }
+
+  goToHome(e) {
+    e.preventDefault();
+    browserHistory.push('/');
   }
 
   onCreatePlayer(e) {
@@ -46,6 +53,7 @@ export default class CreatePlayer extends React.Component {
             onChange={(e)=>this.handleTextUpdate(e)} />
           <div className={styles.buttons}>
             {button}
+            <Button onClick={(e)=>this.goToHome(e)}>Back</Button>
           </div>
         </form>
       </div>
