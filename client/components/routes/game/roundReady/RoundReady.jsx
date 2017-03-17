@@ -11,19 +11,17 @@ export default class RoundReady extends React.Component {
       currentCountdownValue: 0,
       supportsVibration : ('vibrate' in navigator)
     };
-    this.countdownStrings = [3, 2, 1, 'Go!'];
+    this.countdownStrings = [3, 2, 1];
   }
 
   componentDidMount() {
-    setTimeout(this.updateCountdownValue.bind(this), 1100);
+    const element = ReactDOM.findDOMNode(this.roundText);
+    element.addEventListener('animationiteration', this.updateCountdownValue.bind(this));
   }
 
   updateCountdownValue() {
     const nextCountdownValue = ++this.state.currentCountdownValue;
     this.setState({'currentCountdownValue': nextCountdownValue});
-    if (nextCountdownValue < this.countdownStrings.length - 1) {
-      setTimeout(this.updateCountdownValue.bind(this), 1100);
-    }
   }
 
   renderYourGo() {
@@ -41,7 +39,7 @@ export default class RoundReady extends React.Component {
     return(
       <div>
         {this.props.renderRoundPlayer(this.props)}
-        <div className={styles.roundText}>
+        <div className={styles.roundText} ref={(ref) => this.roundText = ref}>
           <Title value={this.countdownStrings[this.state.currentCountdownValue]} />
         </div>
         <div className={styles.phonePlayer}>

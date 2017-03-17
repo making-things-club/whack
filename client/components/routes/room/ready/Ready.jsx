@@ -1,3 +1,5 @@
+const { browserHistory } = ReactRouter;
+
 import styles from './ready.mss';
 import BlackBox from '../../../ui/blackbox/BlackBox';
 import Title from '../../../ui/title/title.jsx'
@@ -9,6 +11,10 @@ export default class Ready extends React.Component {
 
   constructor(props) {
     super(props);
+
+    if(!props.room) {
+      browserHistory.push('/');
+    }
 
     this.state = {
       disabled: false
@@ -30,6 +36,7 @@ export default class Ready extends React.Component {
   }
 
   render() {
+    const title = (this.props.room) ? this.props.room.roomCode : "";
     return(
       <div>
         <BlackBox>
@@ -38,7 +45,7 @@ export default class Ready extends React.Component {
             <Paragraph>
               Share this code with others:
             </Paragraph>
-            <Title value={this.props.room.roomCode} />
+            <Title value={title} />
           </div>
         </BlackBox>
         <PlayersList players={this.props.players} />

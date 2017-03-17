@@ -4,4 +4,5 @@
   left: 10px;
   right: 10px;
   display: flex;
+  flex-direction: row-reverse;
 }

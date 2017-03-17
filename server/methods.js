@@ -1,4 +1,4 @@
-var playerPickedDelay = 2 * 1000;
+var playerPickedDelay = 3 * 1000;
 var moleDuration = 3 * 1000;
 var roundDuration = 30;
 
@@ -38,9 +38,9 @@ startRound = (roomId) => {
   var now = Date.now();
   Rooms.update({ _id : roomId}, { $set : { pickedPlayerId : pickedPlayerId, state : 'playerPicked', roundDurationRemaining: roundDuration}}); // On the front end compare this to stored playerId
   Players.update({ _id : pickedPlayerId}, { $set : { played : true }});
+  roundDurations[roomId] = roundDuration;
+  startMole(roomId, '');
   timeouts[roomId].playerPickedTimeout = Meteor.setTimeout(function() {
-    startMole(roomId, '');
-    roundDurations[roomId] = 30;
     checkRoundEnd(roomId);
   }, playerPickedDelay);
 }
@@ -52,11 +52,16 @@ checkRoundEnd = (roomId) => {
       checkRoundEnd(roomId);
     }, 1000);
   } else {
-    endRound(roomId);
+    Meteor.setTimeout(function() {
+      endRound(roomId);
+    }, 1000);
   }
 }
 
 startMole = (roomId, pickedMoleId) => {
+  if (!timeouts[roomId]) {
+    clearAllTimeouts(roomId);
+  }
   timeouts[roomId].moleTimeout = Meteor.setTimeout(function() {
     showMole(roomId, pickedMoleId)
   }, moleDuration);
@@ -86,13 +91,14 @@ clearAllTimeouts = (roomId) => {
   if(roomTimeouts) {
     if (roomTimeouts.playerPickedTimeout) { Meteor.clearTimeout(roomTimeouts.playerPickedTimeout); }
     if (roomTimeouts.moleTimeout) { Meteor.clearTimeout(roomTimeouts.moleTimeout); }
+    if (roomTimeouts.moleHitTimeout) { Meteor.clearTimeout(roomTimeouts.moleHitTimeout); }
     if (roomTimeouts.roundTimeout) { Meteor.clearTimeout(roomTimeouts.roundTimeout); }
   }
 }
 
 generateCode = () => {
   let text = '';
-  const possible = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+  const possible = 'abcdefghjkmnpqrstuvwxyz23456789';
   for(let i=0; i < 4; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
@@ -116,7 +122,7 @@ Meteor.methods({
   },
 
   findRoom: (roomCode) => {
-    var room = Rooms.findOne({ roomCode });
+    var room = Rooms.findOne({ roomCode: roomCode.toLowerCase() });
     if (room) {
       return room._id;
     } else {

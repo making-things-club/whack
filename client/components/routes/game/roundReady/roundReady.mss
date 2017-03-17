@@ -11,7 +11,11 @@
 
 .phonePlayer {
   position: absolute;
-  bottom: 10px;
+  bottom: 80px;
   left: 10px;
   right: 10px;
+
+  @media (min-height: 600px) {
+    bottom: 10px;
+  }
 }
